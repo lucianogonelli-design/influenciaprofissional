@@ -1,0 +1,439 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Influência Profissional — Agência de Estratégia Digital</title>
+<meta name="description" content="Agência de estratégia digital: marketing de influência, branding pessoal, automações com IA, atendimento com IA no WhatsApp, treinamento de vendas e letramento em IA.">
+<style>
+  :root{
+    --bg:#12161A;
+    --bg-2:#171C21;
+    --card:#1C2228;
+    --line:#2C343B;
+    --text:#EEEBE3;
+    --muted:#98A1A8;
+    --amber:#E8A33D;
+    --amber-deep:#C9822A;
+    --mono:"SF Mono",ui-monospace,Menlo,Monaco,"Courier New",monospace;
+    --sans:"Avenir Next","Avenir","Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:var(--sans);font-size:17px;line-height:1.65;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  ::selection{background:var(--amber);color:#12161A}
+  a{color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
+
+  .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--amber);
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::before{content:"//";color:var(--muted)}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;inset:0 0 auto 0;z-index:50;
+    background:color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);
+  }
+  .head-in{
+    max-width:1180px;margin:0 auto;
+    padding:16px clamp(20px,4vw,48px);
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+  }
+  .brand{
+    text-decoration:none;font-weight:700;letter-spacing:.02em;font-size:17px;
+    display:flex;align-items:center;gap:10px;white-space:nowrap;
+  }
+  .brand i{
+    width:10px;height:10px;border-radius:2px;background:var(--amber);
+    display:inline-block;transform:rotate(45deg);
+  }
+  .brand span{color:var(--muted);font-weight:500}
+  header nav{display:flex;gap:26px}
+  header nav a{
+    text-decoration:none;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;transition:color .25s;
+  }
+  header nav a:hover{color:var(--amber)}
+  .h-cta{
+    text-decoration:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+    color:#12161A;background:var(--amber);
+    padding:11px 22px;border-radius:8px;white-space:nowrap;
+    transition:background .25s,transform .25s;
+  }
+  .h-cta:hover{background:#F3B95C;transform:translateY(-1px)}
+  @media(max-width:860px){header nav{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:clamp(130px,18vh,190px) 0 clamp(60px,9vh,100px);
+    position:relative;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(600px 300px at 85% 20%, rgba(232,163,61,.07), transparent 70%),
+      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size:auto, 72px 72px, 72px 72px;
+    mask-image:linear-gradient(180deg,#000 40%,transparent 95%);
+    -webkit-mask-image:linear-gradient(180deg,#000 40%,transparent 95%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative}
+  .hero h1{
+    font-size:clamp(44px,7.2vw,96px);
+    line-height:1.02;font-weight:700;letter-spacing:-.02em;
+    margin:26px 0 12px;max-width:14ch;text-wrap:balance;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--amber);
+    position:relative;white-space:nowrap;
+  }
+  .hero .sub{
+    color:var(--muted);font-size:clamp(16px,1.7vw,19px);
+    max-width:56ch;margin:20px 0 40px;
+  }
+  .hero .sub strong{color:var(--text);font-weight:600}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:60px}
+  .btn{
+    text-decoration:none;font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    padding:17px 32px;border-radius:10px;
+    display:inline-flex;align-items:center;gap:10px;
+    transition:transform .25s,background .25s,border-color .25s,color .25s;
+  }
+  .btn.solid{background:var(--amber);color:#12161A}
+  .btn.solid:hover{background:#F3B95C;transform:translateY(-2px)}
+  .btn.ghost{border:1px solid var(--line);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--amber);color:var(--amber);transform:translateY(-2px)}
+  .hero-tags{
+    display:flex;gap:0;flex-wrap:wrap;
+    border-top:1px solid var(--line);
+  }
+  .hero-tags span{
+    font-family:var(--mono);font-size:12.5px;color:var(--muted);
+    padding:16px 22px 0 0;letter-spacing:.04em;
+  }
+  .hero-tags span b{color:var(--amber);font-weight:400;padding-right:8px}
+
+  /* ---------- sections ---------- */
+  section{padding:clamp(72px,11vh,120px) 0;position:relative;scroll-margin-top:76px}
+  .sec-head{margin-bottom:clamp(34px,6vh,56px)}
+  .sec-head h2{
+    font-size:clamp(30px,4.4vw,52px);font-weight:700;letter-spacing:-.015em;
+    line-height:1.08;margin-top:16px;text-wrap:balance;max-width:24ch;
+  }
+  .sec-head h2 em{font-style:normal;color:var(--amber)}
+  .sec-head .lead{color:var(--muted);max-width:60ch;margin-top:14px;font-size:16px}
+
+  /* ---------- serviços ---------- */
+  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .svc{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:clamp(24px,3vw,32px);
+    display:flex;flex-direction:column;gap:12px;
+    transition:transform .3s,border-color .3s;position:relative;overflow:hidden;
+  }
+  .svc:hover{transform:translateY(-4px);border-color:var(--amber-deep)}
+  .svc .num{
+    font-family:var(--mono);font-size:12px;color:var(--muted);
+    letter-spacing:.1em;
+  }
+  .svc .ic{
+    width:44px;height:44px;border-radius:10px;
+    background:rgba(232,163,61,.1);border:1px solid rgba(232,163,61,.28);
+    display:grid;place-items:center;color:var(--amber);
+  }
+  .svc .ic svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  .svc h3{font-size:20px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+  .svc p{font-size:14.5px;color:var(--muted);line-height:1.6}
+  @media(max-width:960px){.services{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.services{grid-template-columns:1fr}}
+
+  /* ---------- método ---------- */
+  #metodo{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;counter-reset:st}
+  .step{
+    border:1px solid var(--line);border-radius:14px;background:var(--card);
+    padding:clamp(22px,2.6vw,30px);position:relative;
+  }
+  .step::before{
+    counter-increment:st;
+    content:"0" counter(st);
+    font-family:var(--mono);font-size:13px;color:var(--amber);
+    display:block;margin-bottom:14px;letter-spacing:.1em;
+  }
+  .step h3{font-size:18px;font-weight:700;margin-bottom:8px}
+  .step p{font-size:14px;color:var(--muted)}
+  @media(max-width:960px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.steps{grid-template-columns:1fr}}
+
+  /* ---------- IA banner ---------- */
+  .ia-banner{
+    border:1px solid var(--line);border-radius:18px;
+    background:
+      radial-gradient(400px 200px at 90% 10%, rgba(232,163,61,.12), transparent 70%),
+      var(--card);
+    padding:clamp(32px,5vw,60px);
+    display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(24px,4vw,60px);align-items:center;
+  }
+  .ia-banner h2{font-size:clamp(26px,3.6vw,40px);font-weight:700;letter-spacing:-.015em;line-height:1.15;text-wrap:balance}
+  .ia-banner h2 em{font-style:normal;color:var(--amber)}
+  .ia-banner p:not(.eyebrow){color:var(--muted);margin-top:14px;font-size:15.5px;max-width:52ch}
+  .chat{
+    background:var(--bg);border:1px solid var(--line);border-radius:14px;
+    padding:18px;display:grid;gap:10px;font-size:13.5px;
+  }
+  .chat .m{
+    padding:10px 14px;border-radius:10px;max-width:85%;line-height:1.5;
+  }
+  .chat .in{background:var(--card);border:1px solid var(--line);justify-self:start}
+  .chat .out{background:rgba(232,163,61,.14);border:1px solid rgba(232,163,61,.3);justify-self:end}
+  .chat .meta{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.08em}
+  @media(max-width:860px){.ia-banner{grid-template-columns:1fr}}
+
+  /* ---------- talentos ---------- */
+  .talent{
+    display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:stretch;
+  }
+  .talent-card{
+    border:1px solid var(--line);border-radius:14px;background:var(--card);
+    padding:clamp(26px,3.4vw,40px);text-decoration:none;
+    display:flex;flex-direction:column;gap:12px;
+    transition:transform .3s,border-color .3s;
+  }
+  .talent-card:hover{transform:translateY(-4px);border-color:var(--amber-deep)}
+  .talent-card .tag{font-family:var(--mono);font-size:11.5px;color:var(--amber);letter-spacing:.12em;text-transform:uppercase}
+  .talent-card h3{font-size:clamp(22px,2.6vw,30px);font-weight:700;letter-spacing:-.01em}
+  .talent-card p{color:var(--muted);font-size:14.5px}
+  .talent-card .go{
+    margin-top:auto;padding-top:16px;
+    font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--amber);
+  }
+  .talent-card .go::after{content:" →"}
+  .talent-card.invite{border-style:dashed;justify-content:center;text-align:center;align-items:center}
+  @media(max-width:720px){.talent{grid-template-columns:1fr}}
+
+  /* ---------- contato ---------- */
+  .contato{text-align:center}
+  .contato h2{
+    font-size:clamp(34px,6vw,72px);font-weight:700;letter-spacing:-.02em;
+    line-height:1.04;margin:18px 0 16px;text-wrap:balance;
+  }
+  .contato h2 em{font-style:normal;color:var(--amber)}
+  .contato p:not(.eyebrow){color:var(--muted);max-width:52ch;margin:0 auto 36px}
+  .contato .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  footer{
+    border-top:1px solid var(--line);padding:28px 0;
+  }
+  .foot{
+    max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,48px);
+    display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+    font-size:12.5px;color:var(--muted);
+  }
+  .foot .fm{font-family:var(--mono);font-size:11px;letter-spacing:.08em}
+
+  .rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+  :focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px}
+</style>
+
+<header>
+  <div class="head-in">
+    <a class="brand" href="#top"><i></i>Influência<span>Profissional</span></a>
+    <nav aria-label="Seções">
+      <a href="#servicos">Serviços</a>
+      <a href="#metodo">Método</a>
+      <a href="#ia">IA</a>
+      <a href="#talentos">Talentos</a>
+    </nav>
+    <a class="h-cta" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Diagnóstico</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow rv">Agência de estratégia digital</p>
+      <h1 class="rv">Influência que <em>vende</em>.<br>Inteligência que <em>escala</em>.</h1>
+      <p class="sub rv">Unimos o que move pessoas — <strong>influência e marca pessoal</strong> — com o que multiplica resultados — <strong>automação e inteligência artificial</strong>. Estratégia digital de ponta a ponta para empresas e especialistas.</p>
+      <div class="hero-actions rv">
+        <a class="btn solid" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20para%20a%20minha%20empresa." target="_blank" rel="noopener">Agendar diagnóstico</a>
+        <a class="btn ghost" href="#servicos">Conhecer os serviços</a>
+      </div>
+      <div class="hero-tags rv" aria-hidden="true">
+        <span><b>+</b>Influência</span>
+        <span><b>+</b>Branding pessoal</span>
+        <span><b>+</b>Automações com IA</span>
+        <span><b>+</b>Atendimento inteligente</span>
+        <span><b>+</b>Treinamento de vendas</span>
+        <span><b>+</b>Letramento em IA</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Serviços</p>
+        <h2>Seis frentes, <em>uma estratégia</em></h2>
+        <p class="lead">Cada frente funciona sozinha — juntas, viram um sistema de crescimento.</p>
+      </div>
+      <div class="services">
+        <div class="svc rv">
+          <span class="num">/01</span>
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></span>
+          <h3>Marketing de Influência</h3>
+          <p>Conectamos marcas e criadores com campanhas de narrativa — seleção de talentos, negociação, mídia kit e gestão de ponta a ponta.</p>
+        </div>
+        <div class="svc rv">
+          <span class="num">/02</span>
+          <span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6.5 8-6.5s8 2.5 8 6.5"/></svg></span>
+          <h3>Branding Pessoal</h3>
+          <p>Posicionamento, identidade e presença digital para especialistas, executivos e fundadores que precisam ser lembrados — e escolhidos.</p>
+        </div>
+        <div class="svc rv">
+          <span class="num">/03</span>
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h9M4 12h16M4 17h12"/><circle cx="17" cy="7" r="2.4"/><circle cx="8" cy="17" r="2.4"/></svg></span>
+          <h3>Automações com IA</h3>
+          <p>Fluxos que eliminam o trabalho repetitivo: funis, CRM, follow-ups e integrações rodando sozinhos, com IA no meio do processo.</p>
+        </div>
+        <div class="svc rv">
+          <span class="num">/04</span>
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-8 8H4l2-3a8 8 0 1115-5z"/><path d="M9 11h.01M13 11h.01M17 11h.01"/></svg></span>
+          <h3>Atendimento com IA no WhatsApp</h3>
+          <p>Agentes de IA que respondem em segundos, 24/7 — tiram dúvidas, qualificam leads e agendam, no canal onde seu cliente já está.</p>
+        </div>
+        <div class="svc rv">
+          <span class="num">/05</span>
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-8M21 20H3"/></svg></span>
+          <h3>Treinamento de Vendas</h3>
+          <p>Times comerciais treinados para converter: playbooks, simulações e rotina de vendas orientada a dados — do primeiro contato ao fechamento.</p>
+        </div>
+        <div class="svc rv">
+          <span class="num">/06</span>
+          <span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3.5"/></svg></span>
+          <h3>Letramento em IA</h3>
+          <p>Capacitação prática para equipes usarem IA no dia a dia com critério e segurança — da diretoria à operação.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MÉTODO -->
+  <section id="metodo">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Método</p>
+        <h2>Do diagnóstico à <em>escala</em></h2>
+      </div>
+      <div class="steps">
+        <div class="step rv">
+          <h3>Diagnóstico</h3>
+          <p>Entendemos seu negócio, seu funil e onde a influência e a IA geram mais impacto — antes de propor qualquer coisa.</p>
+        </div>
+        <div class="step rv">
+          <h3>Estratégia sob medida</h3>
+          <p>Plano claro com frentes, prioridades e metas. Sem pacote de prateleira: cada empresa recebe o desenho que faz sentido.</p>
+        </div>
+        <div class="step rv">
+          <h3>Execução</h3>
+          <p>Campanhas, automações e treinamentos entram em operação — com a nossa equipe junto da sua.</p>
+        </div>
+        <div class="step rv">
+          <h3>Mensuração &amp; escala</h3>
+          <p>Acompanhamos os números, ajustamos a rota e escalamos o que comprovadamente funciona.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IA BANNER -->
+  <section id="ia">
+    <div class="wrap">
+      <div class="ia-banner rv">
+        <div>
+          <p class="eyebrow">Atendimento inteligente</p>
+          <h2 style="margin-top:14px">Seu comercial respondendo em segundos. <em>Mesmo às 2h da manhã.</em></h2>
+          <p>Implantamos agentes de IA no WhatsApp da sua empresa: eles atendem com o tom da sua marca, qualificam o lead, agendam a reunião e passam o bastão para o time humano na hora certa.</p>
+          <div style="margin-top:26px">
+            <a class="btn solid" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Quero%20conhecer%20o%20atendimento%20com%20IA%20no%20WhatsApp." target="_blank" rel="noopener">Ver na prática</a>
+          </div>
+        </div>
+        <div class="chat" aria-hidden="true">
+          <span class="meta">WhatsApp · 02:14</span>
+          <div class="m in">Oi! Vocês têm horário para amanhã? Preciso de um orçamento.</div>
+          <div class="m out">Oi, Ana! 👋 Temos sim. Me conta rapidinho o que você precisa e já te passo as opções de horário.</div>
+          <div class="m in">É para minha loja. Quero automatizar o atendimento.</div>
+          <div class="m out">Perfeito — agendei um diagnóstico gratuito amanhã às 10h. Você recebe a confirmação aqui. ✅</div>
+          <span class="meta">// agente de IA · resposta em 4s</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TALENTOS -->
+  <section id="talentos" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <p class="eyebrow">Talentos</p>
+        <h2>Influência com <em>curadoria</em></h2>
+        <p class="lead">Criadores que representamos — com mídia kit profissional e dados abertos para marcas.</p>
+      </div>
+      <div class="talent">
+        <a class="talent-card rv" href="/priscillazanelatto/">
+          <span class="tag">Moda · Imagem · Comportamento</span>
+          <h3>Priscilla Zanelatto</h3>
+          <p>Estrategista de Imagem &amp; Comportamento, 562 mil seguidores e 11,3 milhões de views em 90 dias. Público feminino qualificado e formatos de parceria para marcas premium.</p>
+          <span class="go">Ver mídia kit</span>
+        </a>
+        <a class="talent-card invite rv" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Sou%20criador(a)%20e%20quero%20ser%20representado(a)%20pela%20Influ%C3%AAncia%20Profissional." target="_blank" rel="noopener">
+          <span class="tag">Criadores</span>
+          <h3>Seu nome aqui</h3>
+          <p>É criador(a) e quer gestão comercial, mídia kit profissional e marcas alinhadas ao seu público?</p>
+          <span class="go">Fale com a agência</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="contato" id="contato" style="background:var(--bg-2);border-top:1px solid var(--line)">
+    <div class="wrap">
+      <p class="eyebrow rv" style="justify-content:center">Contato</p>
+      <h2 class="rv">Vamos desenhar sua <em>estratégia?</em></h2>
+      <p class="rv">Diagnóstico direto ao ponto: onde a influência e a IA geram resultado no seu negócio — e por onde começar.</p>
+      <div class="row rv">
+        <a class="btn solid" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Quero%20um%20diagn%C3%B3stico%20para%20a%20minha%20empresa." target="_blank" rel="noopener">WhatsApp · (15) 99853-7657</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot">
+    <span><strong>Influência Profissional</strong> — Agência de Estratégia Digital</span>
+    <span class="fm">influenciaprofissional.com.br</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+})();
+</script>
