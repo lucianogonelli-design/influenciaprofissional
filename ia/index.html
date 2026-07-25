@@ -1,1490 +1,908 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#04060c" />
-  <title>Letramento em IA para PMEs · Workshop</title>
-  <meta name="description" content="Da curiosidade à maturidade: um workshop prático que leva sua PME a usar Inteligência Artificial com método, segurança e ROI real. 4 horas. Sem jargão. Com plano de ação." />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Workshop de Letramento em IA para PMEs — Influência Profissional</title>
+<meta name="description" content="Workshop mão na massa que leva donos, gestores e equipes de PMEs da curiosidade ao uso consciente, prático e seguro da Inteligência Artificial — com método, governança e ROI real. 4 horas, sem pré-requisito técnico.">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --ice:#F1F5FB;
+    --ice-2:#E8EFF9;
+    --ink:#0A1B33;
+    --muted:#54657E;
+    --blue:#1355FF;
+    --blue-deep:#0B3BD6;
+    --cyan:#2FB6FF;
+    --line:#DFE7F2;
+    --grad:linear-gradient(120deg,#1355FF 0%,#2FB6FF 100%);
+    --shadow:0 30px 70px -28px rgba(10,27,51,.22);
+    --sans:"Avenir Next","Avenir","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:"SF Mono",ui-monospace,Menlo,Monaco,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--sans);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  ::selection{background:var(--blue);color:#fff}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{max-width:1220px;margin:0 auto;padding:0 clamp(20px,4vw,48px)}
 
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Letramento em IA para PMEs · Workshop" />
-  <meta property="og:description" content="Em 2026 o diferencial não é usar IA — é usar bem. Um workshop cinematográfico e mão na massa para donos, gestores e equipes." />
+  .kicker{
+    font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--blue);font-weight:600;
+    display:inline-flex;align-items:center;gap:10px;
+  }
+  .kicker::before{content:"//";color:var(--cyan)}
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  h1,h2{font-weight:800;letter-spacing:-.02em;text-transform:uppercase;line-height:1.02}
 
-  <style>
-/* ══════════════════════════════════════════════════════════
-   Letramento em IA para PMEs — cinematic landing
-   Design system: deep-space dark · glass · azure→sky→cyan (pro blue)
-   ══════════════════════════════════════════════════════════ */
+  /* ================ header ================ */
+  header{
+    position:fixed;inset:0 0 auto 0;z-index:90;
+    background:rgba(255,255,255,.86);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid var(--line);
+    transition:box-shadow .3s;
+  }
+  header.scrolled{box-shadow:0 10px 30px -18px rgba(10,27,51,.25)}
+  .head{
+    max-width:1220px;margin:0 auto;padding:15px clamp(20px,4vw,48px);
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+  }
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:800;font-size:17.5px;letter-spacing:-.01em}
+  .logo .mark{
+    width:34px;height:34px;border-radius:9px;background:var(--grad);
+    display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;
+    box-shadow:0 8px 18px -6px rgba(19,85,255,.5);
+  }
+  .logo span b{color:var(--blue)}
+  header nav{display:flex;gap:26px}
+  header nav a{
+    text-decoration:none;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;
+    font-weight:700;color:var(--muted);transition:color .2s;
+  }
+  header nav a:hover{color:var(--blue)}
+  .cta-btn{
+    text-decoration:none;font-weight:700;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--grad);color:#fff;
+    padding:12px 24px;border-radius:999px;white-space:nowrap;
+    box-shadow:0 10px 24px -8px rgba(19,85,255,.55);
+    transition:transform .25s,box-shadow .25s;
+  }
+  .cta-btn:hover{transform:translateY(-2px);box-shadow:0 16px 30px -8px rgba(19,85,255,.6)}
+  @media(max-width:900px){header nav{display:none}}
 
-:root{
-  --bg:#04060c;
-  --bg-2:#070b15;
-  --surface:rgba(255,255,255,.04);
-  --stroke:rgba(255,255,255,.09);
-  --stroke-strong:rgba(255,255,255,.16);
-  --ink:#f5f6fb;
-  --muted:#9aa1b8;
-  --muted-2:#6b7189;
+  /* ================ hero ================ */
+  .hero{position:relative;padding:clamp(130px,17vh,180px) 0 clamp(40px,7vh,90px);overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(720px 420px at 88% 6%, rgba(47,182,255,.14), transparent 65%),
+      radial-gradient(640px 420px at -6% 66%, rgba(19,85,255,.10), transparent 60%),
+      linear-gradient(rgba(10,27,51,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10,27,51,.05) 1px, transparent 1px);
+    background-size:auto,auto,64px 64px,64px 64px;
+    -webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);
+    mask-image:linear-gradient(180deg,#000 55%,transparent 100%);
+    pointer-events:none;
+  }
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,4.5vw,64px);align-items:center}
+  .hero h1{
+    font-size:clamp(40px,5.6vw,76px);
+    margin:22px 0 20px;max-width:16ch;
+  }
+  .hero h1 .hl{
+    background:var(--grad);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    position:relative;
+  }
+  .hero .sub{color:var(--muted);font-size:clamp(16px,1.6vw,19px);max-width:54ch;margin-bottom:36px}
+  .hero .sub strong{color:var(--ink)}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+  .btn{
+    text-decoration:none;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    padding:17px 32px;border-radius:999px;display:inline-flex;align-items:center;gap:10px;
+    transition:transform .25s,box-shadow .25s,border-color .25s,color .25s,background .25s;
+  }
+  .btn.blue{background:var(--grad);color:#fff;box-shadow:0 14px 30px -10px rgba(19,85,255,.55)}
+  .btn.blue:hover{transform:translateY(-2px);box-shadow:0 20px 38px -10px rgba(19,85,255,.6)}
+  .btn.line{border:2px solid var(--line);color:var(--ink)}
+  .btn.line:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px)}
+  .hero-badges{display:flex;gap:10px;flex-wrap:wrap}
+  .hb{
+    font-size:12px;font-weight:700;letter-spacing:.06em;
+    border:1px solid var(--line);background:#fff;border-radius:999px;
+    padding:9px 16px;color:var(--muted);
+  }
+  .hb b{color:var(--blue)}
 
-  --iris:#2563eb;
-  --azure:#3b82f6;
-  --cyan:#22d3ee;
-  --rose:#fb7185;
+  .hero-visual{position:relative}
+  .hero-visual .ph{
+    border-radius:22px;overflow:hidden;box-shadow:var(--shadow);
+    transform:rotate(1.2deg);
+    position:relative;
+  }
+  .hero-visual .ph::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(200deg, rgba(19,85,255,.16), transparent 45%);
+  }
+  .hero-visual .ph img{width:100%;height:auto}
+  .chip{
+    position:absolute;background:#fff;border:1px solid var(--line);
+    border-radius:16px;padding:13px 18px;box-shadow:var(--shadow);
+    display:flex;align-items:center;gap:12px;
+    animation:float 5.5s ease-in-out infinite;
+  }
+  .chip .cic{
+    width:36px;height:36px;border-radius:10px;background:var(--grad);
+    display:grid;place-items:center;color:#fff;flex-shrink:0;
+  }
+  .chip .cic svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .chip b{font-size:16px;display:block;line-height:1.1;font-variant-numeric:tabular-nums}
+  .chip span{font-size:10.5px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .chip.c1{top:6%;left:-34px;animation-delay:0s}
+  .chip.c2{bottom:22%;right:-26px;animation-delay:1.6s}
+  .chip.c3{bottom:-22px;left:12%;animation-delay:3.1s}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+  @media(max-width:960px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-visual{max-width:560px;margin:0 auto}
+    .chip.c1{left:-8px}.chip.c2{right:-8px}
+  }
 
-  --grad: linear-gradient(110deg,#60a5fa 0%,#38bdf8 50%,#22d3ee 100%);
-  --grad-soft: linear-gradient(135deg,rgba(96,165,250,.9),rgba(56,189,248,.9));
+  /* ================ marquee ================ */
+  .marq{
+    background:var(--ink);color:#fff;overflow:hidden;padding:15px 0;
+  }
+  .marq .track{display:flex;width:max-content;animation:mq 30s linear infinite}
+  .marq .seq{display:flex;align-items:center;white-space:nowrap}
+  .marq .seq span{
+    font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+    font-size:clamp(13px,1.5vw,16px);padding:0 26px;
+  }
+  .marq .seq span:nth-child(even){
+    -webkit-text-stroke:1px rgba(255,255,255,.7);color:transparent;
+  }
+  .marq .seq i{color:var(--cyan);font-style:normal}
+  @keyframes mq{to{transform:translateX(-50%)}}
 
-  --font: "Inter", system-ui, -apple-system, sans-serif;
-  --display: "Space Grotesk", "Inter", sans-serif;
-  --serif: "Instrument Serif", Georgia, serif;
+  /* ================ sections base ================ */
+  section{padding:clamp(80px,12vh,130px) 0;position:relative;scroll-margin-top:80px}
+  .side-label{
+    position:absolute;left:calc(50% - 660px);top:50%;
+    transform:rotate(180deg) translateY(50%);
+    writing-mode:vertical-rl;
+    font-family:var(--mono);font-size:12px;letter-spacing:.3em;text-transform:uppercase;
+    color:rgba(10,27,51,.28);font-weight:600;white-space:nowrap;
+  }
+  @media(max-width:1420px){.side-label{display:none}}
+  .sec-head{margin-bottom:clamp(36px,6vh,60px)}
+  .sec-head h2{font-size:clamp(30px,4.6vw,56px);margin-top:16px;max-width:22ch;text-wrap:balance}
+  .sec-head h2 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sec-head .lead{color:var(--muted);max-width:62ch;margin-top:16px;font-size:16.5px}
 
-  --ease: cubic-bezier(.22,1,.36,1);
-  --ease-out: cubic-bezier(.16,1,.3,1);
-  --maxw: 1200px;
-}
+  /* ================ programa (accordion) ================ */
+  #solucoes{background:var(--bg)}
+  .sol-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(30px,4.5vw,70px);align-items:start}
+  .sol-left{position:sticky;top:110px}
+  .sol-left .ph{border-radius:20px;overflow:hidden;box-shadow:var(--shadow);position:relative}
+  .sol-left .ph img{width:100%;height:auto}
+  .sol-left .ph .tagline{
+    position:absolute;left:16px;bottom:16px;right:16px;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+    border-radius:12px;padding:13px 18px;font-size:13.5px;font-weight:600;color:var(--ink);
+  }
+  .sol-left .ph .tagline b{color:var(--blue)}
+  .acc{border-top:1px solid var(--line)}
+  .acc-item{border-bottom:1px solid var(--line)}
+  .acc-btn{
+    width:100%;background:none;border:0;cursor:pointer;
+    display:flex;align-items:center;gap:18px;
+    padding:22px 6px;text-align:left;font-family:var(--sans);color:var(--ink);
+  }
+  .acc-btn .n{font-family:var(--mono);font-size:12px;color:var(--cyan);font-weight:600;width:30px;flex-shrink:0}
+  .acc-btn .t{font-size:clamp(17px,2vw,22px);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;flex:1;transition:color .25s}
+  .acc-btn .x{
+    width:34px;height:34px;border-radius:50%;border:2px solid var(--line);
+    display:grid;place-items:center;flex-shrink:0;
+    transition:transform .35s,border-color .25s,background .25s;
+    font-size:17px;font-weight:700;color:var(--blue);line-height:1;
+  }
+  .acc-item:hover .t{color:var(--blue)}
+  .acc-item.open .x{transform:rotate(45deg);background:var(--blue);border-color:var(--blue);color:#fff}
+  .acc-body{
+    max-height:0;overflow:hidden;
+    transition:max-height .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .acc-body-in{padding:0 6px 24px 48px;color:var(--muted);font-size:15.5px;max-width:60ch}
+  .acc-body-in .mini{
+    display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;
+  }
+  .acc-body-in .mini span{
+    font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+    background:var(--ice);color:var(--blue-deep);
+    border-radius:999px;padding:7px 13px;
+  }
+  @media(max-width:960px){.sol-grid{grid-template-columns:1fr}.sol-left{position:static;max-width:560px}}
 
-*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  /* ================ método ================ */
+  #metodo{background:var(--ice)}
+  .mt-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;counter-reset:mt}
+  .mt{
+    background:#fff;border:1px solid var(--line);border-radius:18px;
+    padding:clamp(24px,2.8vw,32px);position:relative;overflow:hidden;
+    transition:transform .3s,box-shadow .3s;
+  }
+  .mt:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .mt::before{
+    counter-increment:mt;content:"0" counter(mt);
+    font-family:var(--mono);font-weight:600;
+    font-size:15px;color:#fff;
+    width:44px;height:44px;border-radius:12px;background:var(--grad);
+    display:grid;place-items:center;margin-bottom:18px;
+  }
+  .mt h3{font-size:18.5px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:8px}
+  .mt p{font-size:14.5px;color:var(--muted)}
+  .mt .bar{
+    position:absolute;left:0;top:0;height:4px;width:0;background:var(--grad);
+    transition:width 1s cubic-bezier(.2,.7,.2,1);
+  }
+  .in-view .mt .bar{width:100%}
+  .in-view .mt:nth-child(1) .bar{transition-delay:.05s}
+  .in-view .mt:nth-child(2) .bar{transition-delay:.25s}
+  .in-view .mt:nth-child(3) .bar{transition-delay:.45s}
+  .in-view .mt:nth-child(4) .bar{transition-delay:.65s}
+  @media(max-width:960px){.mt-steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.mt-steps{grid-template-columns:1fr}}
 
-html{ -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
-html.lenis,html.lenis body{ height:auto; }
-.lenis.lenis-smooth{ scroll-behavior:auto!important; }
+  /* ================ dados / infográficos ================ */
+  #dados .panel{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:16px;
+  }
+  .card{
+    background:#fff;border:1px solid var(--line);border-radius:20px;
+    padding:clamp(24px,3vw,36px);
+    transition:transform .3s,box-shadow .3s;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .card h3{font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  .card .big{font-size:clamp(15px,1.6vw,17px);font-weight:700;margin-bottom:18px}
+  .card .big em{font-style:normal;color:var(--blue)}
 
-body{
-  font-family:var(--font);
-  background:var(--bg);
-  color:var(--ink);
-  line-height:1.6;
-  overflow-x:hidden;
-  position:relative;
-}
+  .counters{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+  .cnt{
+    background:var(--ink);color:#fff;border-radius:20px;
+    padding:clamp(22px,2.6vw,30px);position:relative;overflow:hidden;
+  }
+  .cnt::before{
+    content:"";position:absolute;inset:auto -30% -55% auto;width:160px;height:160px;border-radius:50%;
+    background:radial-gradient(circle, rgba(47,182,255,.35), transparent 70%);
+  }
+  .cnt b{font-size:clamp(30px,3.4vw,44px);font-weight:800;display:block;line-height:1.05;font-variant-numeric:tabular-nums}
+  .cnt b i{font-style:normal;color:var(--cyan)}
+  .cnt > span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.66)}
+  .cnt b .count{font-size:inherit}
+  @media(max-width:900px){.counters{grid-template-columns:1fr 1fr}}
 
-::selection{ background:rgba(96,165,250,.35); color:#fff; }
+  .chart-svg{width:100%;height:auto;display:block}
+  .chart-svg .grid-l{stroke:var(--line);stroke-width:1}
+  .chart-svg .lbl{font-family:var(--mono);font-size:10px;fill:var(--muted)}
+  .chart-svg .line{
+    fill:none;stroke:url(#lg1);stroke-width:3.5;stroke-linecap:round;
+    stroke-dasharray:1000;stroke-dashoffset:1000;
+  }
+  .chart-svg .area{fill:url(#ag1);opacity:0;transition:opacity .8s ease .9s}
+  .chart-svg .dot{fill:#fff;stroke:var(--blue);stroke-width:3;opacity:0;transition:opacity .4s ease 1.3s}
+  .in-view .chart-svg .line{animation:draw 1.6s cubic-bezier(.4,0,.2,1) forwards}
+  .in-view .chart-svg .area{opacity:1}
+  .in-view .chart-svg .dot{opacity:1}
+  @keyframes draw{to{stroke-dashoffset:0}}
 
-img{ max-width:100%; display:block; }
-a{ color:inherit; text-decoration:none; }
+  .funnel{display:grid;gap:10px}
+  .fstep{display:grid;grid-template-columns:1fr;position:relative}
+  .fbar{
+    height:52px;border-radius:12px;background:var(--grad);
+    width:0;transition:width 1.1s cubic-bezier(.2,.7,.2,1);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 18px;color:#fff;overflow:hidden;white-space:nowrap;
+  }
+  .fstep:nth-child(2) .fbar{background:linear-gradient(120deg,#2F6BFF,#2FB6FF);transition-delay:.15s}
+  .fstep:nth-child(3) .fbar{background:linear-gradient(120deg,#2F8CFF,#4FC6FF);transition-delay:.3s}
+  .fstep:nth-child(4) .fbar{background:linear-gradient(120deg,#39A8FF,#7BD8FF);transition-delay:.45s}
+  .fbar b{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:800}
+  .fbar span{font-family:var(--mono);font-size:12px}
+  .in-view .fstep:nth-child(1) .fbar{width:100%}
+  .in-view .fstep:nth-child(2) .fbar{width:82%}
+  .in-view .fstep:nth-child(3) .fbar{width:60%}
+  .in-view .fstep:nth-child(4) .fbar{width:38%}
+  .fnote{font-size:13px;color:var(--muted);margin-top:14px}
+  @media(max-width:900px){#dados .panel{grid-template-columns:1fr}}
 
-.grad{
-  background:var(--grad);
-  -webkit-background-clip:text; background-clip:text;
-  -webkit-text-fill-color:transparent; color:transparent;
-}
+  /* ================ framework R.A.C.E. ================ */
+  #framework{background:var(--bg)}
+  .race-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .rtile{
+    background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(22px,2.6vw,30px);
+    transition:transform .3s,box-shadow .3s;
+  }
+  .rtile:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .rtile .rl{
+    width:46px;height:46px;border-radius:13px;background:var(--grad);color:#fff;
+    display:grid;place-items:center;font-weight:800;font-size:21px;margin-bottom:16px;
+    box-shadow:0 10px 22px -8px rgba(19,85,255,.5);
+  }
+  .rtile h4{font-size:15.5px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:6px}
+  .rtile p{font-size:13.5px;color:var(--muted)}
+  @media(max-width:900px){.race-grid{grid-template-columns:1fr 1fr}}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+  .ba .bx{border-radius:18px;padding:clamp(20px,2.4vw,26px);font-size:14.5px;line-height:1.6}
+  .ba .bad{background:var(--ice);border:1px solid var(--line);color:var(--muted)}
+  .ba .good{background:var(--ink);color:#fff}
+  .ba .tagx{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:10px;font-weight:600}
+  .ba .bad .tagx{color:#C24}
+  .ba .good .tagx{color:var(--cyan)}
+  .ba .good mark{background:rgba(47,182,255,.24);color:#fff;border-radius:3px;padding:0 3px}
+  @media(max-width:760px){.ba{grid-template-columns:1fr}}
 
-/* ─── Ambient background ─── */
-.ambient{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
-.ambient__glow{
-  position:absolute; border-radius:50%;
-  filter:blur(120px); opacity:.55; will-change:transform;
-}
-.ambient__glow--1{ width:60vw; height:60vw; top:-20vw; left:-10vw;
-  background:radial-gradient(circle,#1d4ed8,transparent 68%); opacity:.42; }
-.ambient__glow--2{ width:55vw; height:55vw; top:35vh; right:-18vw;
-  background:radial-gradient(circle,#0284c7,transparent 68%); opacity:.32; }
-.ambient__glow--3{ width:48vw; height:48vw; bottom:-16vw; left:22vw;
-  background:radial-gradient(circle,#0891b2,transparent 68%); opacity:.24; }
-.ambient__grid{
-  position:absolute; inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:64px 64px;
-  mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000 40%,transparent 100%);
-  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000 40%,transparent 100%);
-}
-.grain{
-  position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.05; mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
+  /* ================ prática / whatsapp (dark) ================ */
+  #ia{background:var(--ink);color:#fff;overflow:hidden}
+  #ia .sec-head h2{color:#fff}
+  #ia .sec-head .lead{color:rgba(255,255,255,.7)}
+  #ia::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(700px 400px at 85% 20%, rgba(47,182,255,.16), transparent 65%);
+    pointer-events:none;
+  }
+  .ia-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,4.5vw,70px);align-items:center;position:relative}
+  .ia-feats{display:grid;gap:14px;margin-top:26px}
+  .feat{display:flex;gap:14px;align-items:flex-start}
+  .feat .fi{
+    width:40px;height:40px;border-radius:11px;background:rgba(47,182,255,.16);
+    border:1px solid rgba(47,182,255,.4);
+    display:grid;place-items:center;color:var(--cyan);flex-shrink:0;
+  }
+  .feat .fi svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .feat b{display:block;font-size:15.5px}
+  .feat p{font-size:13.5px;color:rgba(255,255,255,.66)}
+  .phone{
+    background:#0F2240;border:1px solid rgba(255,255,255,.14);
+    border-radius:26px;padding:18px;max-width:420px;margin:0 auto;
+    box-shadow:0 40px 80px -30px rgba(0,0,0,.6);
+  }
+  .phone .ph-top{
+    display:flex;align-items:center;gap:10px;
+    border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:12px;margin-bottom:14px;
+  }
+  .phone .av{width:34px;height:34px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-weight:800;font-size:13px}
+  .phone .ph-top b{font-size:13.5px;display:block;line-height:1.2}
+  .phone .ph-top span{font-size:11px;color:#57E38B}
+  .msgs{display:grid;gap:9px;min-height:250px}
+  .msg{
+    padding:11px 14px;border-radius:12px;font-size:13.5px;line-height:1.5;max-width:86%;
+    opacity:0;transform:translateY(10px);
+    transition:opacity .4s ease,transform .4s ease;
+  }
+  .msg.in{background:rgba(255,255,255,.1);justify-self:start;border-top-left-radius:4px}
+  .msg.out{background:#1355FF;justify-self:end;border-top-right-radius:4px}
+  .msg.show{opacity:1;transform:none}
+  .msg .mt2{display:block;font-size:10px;opacity:.55;margin-top:4px;text-align:right;font-family:var(--mono)}
+  .typing{display:inline-flex;gap:4px;align-items:center;height:10px}
+  .typing i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.7);animation:tp 1s infinite}
+  .typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+  @keyframes tp{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+  @media(max-width:960px){.ia-grid{grid-template-columns:1fr}}
 
-/* ─── Custom cursor ─── */
-.cursor{ position:fixed; top:0; left:0; z-index:9999; pointer-events:none; mix-blend-mode:difference; }
-.cursor__dot{ position:fixed; width:7px; height:7px; border-radius:50%; background:#fff;
-  transform:translate(-50%,-50%); transition:width .25s,height .25s; }
-.cursor__ring{ position:fixed; width:38px; height:38px; border-radius:50%;
-  border:1px solid rgba(255,255,255,.6); transform:translate(-50%,-50%);
-  transition:width .3s var(--ease),height .3s var(--ease),opacity .3s,background .3s; }
-.cursor__ring[data-label]::after{
-  content:attr(data-label); position:absolute; inset:0; display:grid; place-items:center;
-  font-size:11px; font-weight:600; letter-spacing:.02em; color:#fff; text-transform:lowercase; }
-.cursor.is-hover .cursor__ring{ width:64px; height:64px; background:rgba(255,255,255,.08); }
-.cursor.is-hide{ opacity:0; }
-@media (hover:none){ .cursor{ display:none; } }
+  /* ================ agenda (timeline) ================ */
+  #agenda{background:var(--ice)}
+  .agenda-grid{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(30px,4.5vw,64px);align-items:start}
+  .agenda-note{position:sticky;top:110px}
+  .agenda-note .box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:clamp(24px,3vw,32px);box-shadow:var(--shadow)}
+  .agenda-note .box h3{font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:10px}
+  .agenda-note .box p{font-size:14.5px;color:var(--muted);margin-bottom:18px}
+  .agenda-note .box .mini{display:flex;gap:8px;flex-wrap:wrap}
+  .agenda-note .box .mini span{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--ice);color:var(--blue-deep);border-radius:999px;padding:7px 13px}
+  .tl{position:relative;margin-left:8px;padding-left:34px}
+  .tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--blue),var(--cyan))}
+  .tli{position:relative;padding:0 0 28px}
+  .tli:last-child{padding-bottom:0}
+  .tli::before{content:"";position:absolute;left:-34px;top:3px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--blue);box-shadow:0 0 0 4px rgba(19,85,255,.1)}
+  .tli .tt{font-family:var(--mono);font-size:12px;color:var(--blue);font-weight:600;letter-spacing:.06em}
+  .tli h4{font-size:clamp(17px,2.1vw,22px);font-weight:800;text-transform:uppercase;letter-spacing:-.01em;margin:5px 0 6px}
+  .tli p{font-size:14.5px;color:var(--muted);max-width:62ch}
+  @media(max-width:900px){.agenda-grid{grid-template-columns:1fr}.agenda-note{position:static}}
 
-/* ─── Scroll progress ─── */
-.scroll-progress{ position:fixed; top:0; left:0; right:0; height:2px; z-index:9000; background:rgba(255,255,255,.06); }
-.scroll-progress span{ display:block; height:100%; width:0; background:var(--grad);
-  box-shadow:0 0 12px rgba(96,165,250,.7); }
+  /* ================ público strip ================ */
+  .train{
+    border-radius:24px;overflow:hidden;position:relative;min-height:380px;
+    display:flex;align-items:center;box-shadow:var(--shadow);
+  }
+  .train>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .train .ov{
+    position:relative;background:linear-gradient(90deg, rgba(8,18,36,.86) 20%, rgba(8,18,36,.25) 75%, transparent);
+    width:100%;padding:clamp(30px,5vw,64px);color:#fff;
+  }
+  .train h3{font-size:clamp(24px,3.2vw,40px);font-weight:800;text-transform:uppercase;letter-spacing:-.015em;max-width:22ch;line-height:1.08}
+  .train h3 em{font-style:normal;color:var(--cyan)}
+  .train p{margin:14px 0 24px;color:rgba(255,255,255,.85);max-width:52ch;font-size:15.5px}
+  .train .pills{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+  .train .pills span{
+    font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+    border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:8px 14px;
+  }
+  .train .ov .btn.line{color:#fff;border-color:rgba(255,255,255,.5)}
+  .train .ov .btn.line:hover{color:#fff;border-color:#fff;background:rgba(255,255,255,.1)}
 
-/* ─── Buttons ─── */
-.btn{
-  --pad:.9rem 1.5rem;
-  position:relative; display:inline-flex; align-items:center; gap:.6rem;
-  padding:var(--pad); border-radius:100px; font-weight:600; font-size:.95rem;
-  letter-spacing:-.01em; cursor:pointer; border:1px solid transparent;
-  transition:transform .3s var(--ease),box-shadow .4s var(--ease),background .3s,color .3s;
-  will-change:transform;
-}
-.btn svg{ transition:transform .35s var(--ease); }
-.btn:hover svg{ transform:translateX(4px); }
-.btn--primary{
-  color:#0a0713; background:var(--grad); background-size:180% 180%;
-  box-shadow:0 8px 30px -8px rgba(37,99,235,.6), inset 0 1px 0 rgba(255,255,255,.4);
-  animation:btnShift 6s ease infinite;
-}
-.btn--primary:hover{ box-shadow:0 14px 44px -8px rgba(37,99,235,.8), inset 0 1px 0 rgba(255,255,255,.5); }
-@keyframes btnShift{ 0%,100%{ background-position:0% 50% } 50%{ background-position:100% 50% } }
-.btn--ghost{ color:var(--ink); background:var(--surface); border-color:var(--stroke); backdrop-filter:blur(10px); }
-.btn--ghost:hover{ border-color:var(--stroke-strong); background:rgba(255,255,255,.07); }
-.btn--nav{ padding:.6rem 1.15rem; font-size:.85rem; color:#0a0713; background:var(--grad); background-size:180% 180%; animation:btnShift 6s ease infinite; }
-.btn--block{ width:100%; justify-content:center; }
-.btn--xl{ padding:1.15rem 2.4rem; font-size:1.1rem; }
+  /* ================ CTA final ================ */
+  .final{
+    background:var(--grad);border-radius:26px;
+    padding:clamp(44px,7vw,90px);text-align:center;color:#fff;
+    position:relative;overflow:hidden;
+  }
+  .final::before,.final::after{
+    content:"";position:absolute;border-radius:50%;border:1.5px solid rgba(255,255,255,.25);
+  }
+  .final::before{width:420px;height:420px;top:-210px;right:-140px}
+  .final::after{width:300px;height:300px;bottom:-160px;left:-100px}
+  .final h2{font-size:clamp(30px,5vw,60px);max-width:20ch;margin:0 auto 16px;text-wrap:balance}
+  .final p{color:rgba(255,255,255,.88);max-width:52ch;margin:0 auto 34px;font-size:16.5px}
+  .final .btn{background:#fff;color:var(--blue-deep);box-shadow:0 18px 40px -12px rgba(6,24,80,.5)}
+  .final .btn:hover{transform:translateY(-2px)}
 
-/* ─── Glass ─── */
-.glass{
-  background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.02));
-  border:1px solid var(--stroke);
-  backdrop-filter:blur(18px) saturate(1.2);
-  -webkit-backdrop-filter:blur(18px) saturate(1.2);
-  border-radius:22px;
-  box-shadow:0 24px 60px -30px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.08);
-}
+  footer{border-top:1px solid var(--line);padding:30px 0;margin-top:clamp(60px,9vh,100px)}
+  .foot{
+    max-width:1220px;margin:0 auto;padding:0 clamp(20px,4vw,48px);
+    display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+    font-size:13px;color:var(--muted);
+  }
+  .foot .fm{font-family:var(--mono);font-size:11px;letter-spacing:.06em}
+  .foot a{color:var(--blue);text-decoration:none;font-weight:700}
 
-/* ─── Section primitives ─── */
-section{ position:relative; z-index:2; }
-.section-eyebrow{
-  display:inline-block; font-family:var(--display); font-size:.8rem; font-weight:500;
-  letter-spacing:.18em; text-transform:uppercase; color:var(--muted);
-  margin-bottom:1.2rem;
-}
-.section-eyebrow::before{ content:""; display:inline-block; width:26px; height:1px; background:var(--stroke-strong); vertical-align:middle; margin-right:.7rem; }
-.section-title{
-  font-family:var(--display); font-weight:600; letter-spacing:-.03em; line-height:1.04;
-  font-size:clamp(2.2rem,5.2vw,4.2rem);
-}
-.section-lead{ margin-top:1.4rem; color:var(--muted); font-size:clamp(1rem,1.5vw,1.2rem); max-width:46ch; }
-
-/* ══════════════════ NAV ══════════════════ */
-.nav{
-  position:fixed; top:0; left:0; right:0; z-index:8000;
-  display:flex; align-items:center; justify-content:space-between; gap:1rem;
-  padding:1.1rem clamp(1.2rem,4vw,3rem);
-  transition:padding .4s var(--ease),background .4s,border-color .4s;
-  border-bottom:1px solid transparent;
-}
-.nav.is-scrolled{
-  padding-top:.7rem; padding-bottom:.7rem;
-  background:rgba(6,7,12,.65); backdrop-filter:blur(16px);
-  border-bottom-color:var(--stroke);
-}
-.nav__brand{ display:flex; align-items:center; gap:.55rem; font-family:var(--display); font-weight:600; font-size:1.05rem; letter-spacing:-.02em; }
-.nav__brand em{ color:var(--azure); font-style:normal; }
-.nav__spark{ width:14px; height:14px; border-radius:4px; background:var(--grad); box-shadow:0 0 14px rgba(96,165,250,.8); }
-.nav__links{ display:flex; gap:2rem; }
-.nav__links a{ font-size:.9rem; color:var(--muted); position:relative; transition:color .3s; }
-.nav__links a::after{ content:""; position:absolute; left:0; bottom:-4px; width:0; height:1px; background:var(--grad); transition:width .35s var(--ease); }
-.nav__links a:hover{ color:var(--ink); }
-.nav__links a:hover::after{ width:100%; }
-@media (max-width:860px){ .nav__links{ display:none; } }
-
-/* ══════════════════ HERO ══════════════════ */
-.hero{
-  position:relative; min-height:100svh; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; text-align:center;
-  padding:8rem clamp(1.2rem,4vw,2rem) 4rem; overflow:hidden;
-}
-.hero__parallax{ position:absolute; inset:0; z-index:0; }
-.hero__orb{ position:absolute; border-radius:50%; will-change:transform; filter:blur(2px); }
-.hero__orb--a{ width:340px; height:340px; top:12%; left:8%;
-  background:radial-gradient(circle at 30% 30%,rgba(96,165,250,.5),rgba(96,165,250,0) 70%);
-  animation:float 14s ease-in-out infinite; }
-.hero__orb--b{ width:260px; height:260px; bottom:14%; right:10%;
-  background:radial-gradient(circle at 40% 40%,rgba(56,189,248,.42),rgba(56,189,248,0) 70%);
-  animation:float 18s ease-in-out infinite reverse; }
-.hero__orb--c{ width:180px; height:180px; top:60%; left:20%;
-  background:radial-gradient(circle at 40% 40%,rgba(34,211,238,.4),rgba(34,211,238,0) 70%);
-  animation:float 16s ease-in-out infinite 2s; }
-@keyframes float{ 0%,100%{ transform:translateY(0) translateX(0) } 33%{ transform:translateY(-26px) translateX(14px) } 66%{ transform:translateY(14px) translateX(-12px) } }
-.hero__particles{ position:absolute; inset:0; width:100%; height:100%; }
-
-.hero__inner{ position:relative; z-index:2; max-width:1000px; transform-style:preserve-3d; }
-.hero__chip{
-  display:inline-flex; align-items:center; gap:.6rem; padding:.5rem 1rem;
-  border-radius:100px; border:1px solid var(--stroke); background:var(--surface);
-  backdrop-filter:blur(10px); font-size:.82rem; color:var(--muted); margin-bottom:2rem;
-}
-.hero__chip-dot{ width:7px; height:7px; border-radius:50%; background:#34d399; box-shadow:0 0 10px #34d399; animation:pulse 2s infinite; }
-@keyframes pulse{ 0%,100%{ opacity:1 } 50%{ opacity:.35 } }
-
-.hero__title{
-  font-family:var(--display); font-weight:600; letter-spacing:-.035em;
-  font-size:clamp(2.5rem,7vw,5.6rem); line-height:1.02;
-}
-.hero__sub{ margin:2rem auto 0; max-width:60ch; color:var(--muted); font-size:clamp(1.05rem,1.7vw,1.3rem); }
-.hero__sub strong{ color:var(--ink); font-weight:600; }
-.hero__actions{ display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; margin-top:2.6rem; }
-.hero__meta{ display:flex; gap:2.4rem; justify-content:center; flex-wrap:wrap; margin-top:3.4rem; }
-.hero__meta-item{ display:flex; flex-direction:column; gap:.15rem; }
-.hero__meta-item strong{ font-family:var(--display); font-size:1.35rem; font-weight:600; }
-.hero__meta-item span{ font-size:.82rem; color:var(--muted-2); letter-spacing:.02em; }
-
-.hero__scroll{ position:absolute; bottom:2.2rem; left:50%; transform:translateX(-50%); z-index:2;
-  display:flex; flex-direction:column; align-items:center; gap:.7rem; }
-.hero__scroll-line{ width:1px; height:44px; background:linear-gradient(to bottom,transparent,var(--stroke-strong)); position:relative; overflow:hidden; }
-.hero__scroll-line::after{ content:""; position:absolute; top:-50%; left:0; width:100%; height:50%; background:var(--grad); animation:scrolldot 2.2s var(--ease) infinite; }
-@keyframes scrolldot{ 0%{ top:-50% } 100%{ top:100% } }
-.hero__scroll-txt{ font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--muted-2); }
-
-/* ══════════════════ MARQUEE ══════════════════ */
-.marquee{ padding:3rem 0; border-block:1px solid var(--stroke); overflow:hidden;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
-  mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); }
-.marquee__label{ text-align:center; font-size:.75rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted-2); margin-bottom:1.6rem; }
-.marquee__track{ display:flex; width:max-content; }
-.marquee__row{ display:flex; align-items:center; gap:2.4rem; padding-right:2.4rem; font-family:var(--display); font-size:clamp(1.1rem,2.4vw,1.8rem); color:var(--muted); font-weight:500; white-space:nowrap; }
-.marquee__row i{ color:var(--azure); font-style:normal; font-size:.6em; opacity:.6; }
-
-/* ══════════════════ GAP ══════════════════ */
-.gap{ padding:12vh 0; }
-.gap__sticky{ max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.2rem,5vw,3rem); text-align:center; }
-.gap__headline{ font-family:var(--display); font-weight:600; letter-spacing:-.035em; line-height:1.05; font-size:clamp(2.2rem,6vw,4.6rem); }
-.gap__headline em{ font-family:var(--serif); font-style:italic; font-weight:400; }
-.gap__lead{ margin:2rem auto 0; max-width:60ch; color:var(--muted); font-size:clamp(1.05rem,1.6vw,1.25rem); }
-.gap__lead strong{ color:var(--ink); }
-.gap__bars{ display:grid; gap:1.6rem; max-width:720px; margin:4.5rem auto 0; }
-.gap__bar{ text-align:left; }
-.gap__bar-track{ height:14px; border-radius:100px; background:rgba(255,255,255,.05); border:1px solid var(--stroke); overflow:hidden; }
-.gap__bar-fill{ display:block; height:100%; width:0; border-radius:100px; background:linear-gradient(90deg,rgba(96,165,250,.5),rgba(56,189,248,.5)); }
-.gap__bar--accent .gap__bar-fill{ background:var(--grad); box-shadow:0 0 24px rgba(96,165,250,.6); }
-.gap__bar-info{ display:flex; align-items:baseline; gap:1rem; margin-top:.9rem; }
-.gap__bar-num{ font-family:var(--display); font-size:clamp(1.8rem,4vw,2.8rem); font-weight:600; letter-spacing:-.03em; }
-.gap__bar--accent .gap__bar-num{ background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.gap__bar-desc{ color:var(--muted); font-size:.98rem; }
-.gap__bar-desc strong{ color:var(--ink); }
-.gap__punch{ font-family:var(--serif); font-style:italic; font-size:clamp(1.4rem,3vw,2.2rem); line-height:1.4; max-width:24ch; margin:5rem auto 0; color:var(--ink); }
-
-/* ══════════════════ LEARN ══════════════════ */
-.learn{ max-width:var(--maxw); margin:0 auto; padding:14vh clamp(1.2rem,5vw,3rem); }
-.learn__head{ max-width:760px; margin-bottom:4rem; }
-.learn__grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
-@media (max-width:900px){ .learn__grid{ grid-template-columns:repeat(2,1fr); } }
-@media (max-width:600px){ .learn__grid{ grid-template-columns:1fr; } }
-.card{ position:relative; overflow:hidden; }
-.card__glow{ position:absolute; width:220px; height:220px; border-radius:50%; filter:blur(60px);
-  background:radial-gradient(circle,rgba(96,165,250,.5),transparent 70%); opacity:0; transition:opacity .5s; pointer-events:none;
-  left:var(--mx,50%); top:var(--my,50%); transform:translate(-50%,-50%); }
-.card:hover .card__glow{ opacity:.5; }
-.learn__card{ padding:2rem 1.8rem; transition:transform .5s var(--ease),border-color .5s; }
-.learn__card:hover{ border-color:var(--stroke-strong); }
-.learn__icon{ width:52px; height:52px; border-radius:14px; display:grid; place-items:center; margin-bottom:1.4rem;
-  background:linear-gradient(160deg,rgba(96,165,250,.18),rgba(56,189,248,.08)); border:1px solid var(--stroke); color:#bae6fd; }
-.learn__icon svg{ width:24px; height:24px; }
-.learn__card h3{ font-family:var(--display); font-size:1.2rem; font-weight:600; letter-spacing:-.01em; margin-bottom:.6rem; }
-.learn__card p{ color:var(--muted); font-size:.96rem; }
-
-/* ══════════════════ RACE ══════════════════ */
-.race{ max-width:var(--maxw); margin:0 auto; padding:10vh clamp(1.2rem,5vw,3rem); }
-.race__grid{ display:grid; grid-template-columns:1fr 1.05fr; gap:clamp(2rem,5vw,5rem); align-items:center; }
-@media (max-width:900px){ .race__grid{ grid-template-columns:1fr; } }
-.race__list{ list-style:none; margin-top:2.5rem; display:grid; gap:1rem; }
-.race__list li{ display:flex; align-items:center; gap:1.1rem; }
-.race__list b{ flex:none; width:44px; height:44px; border-radius:12px; display:grid; place-items:center;
-  font-family:var(--display); font-weight:700; font-size:1.2rem;
-  background:linear-gradient(160deg,rgba(96,165,250,.2),rgba(56,189,248,.08)); border:1px solid var(--stroke); color:#bae6fd; }
-.race__list div{ color:var(--muted); }
-.race__list strong{ color:var(--ink); }
-.race__demo{ display:flex; flex-direction:column; align-items:center; gap:1.1rem; }
-.race__card{ width:100%; padding:1.6rem 1.7rem; position:relative; }
-.race__card p{ font-size:1rem; line-height:1.65; }
-.race__card--bad{ opacity:.72; }
-.race__card--bad p{ color:var(--muted); }
-.race__card-tag{ display:inline-block; font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; padding:.28rem .7rem; border-radius:100px; margin-bottom:1rem; }
-.race__card-tag--bad{ background:rgba(251,113,133,.12); color:#fb7185; border:1px solid rgba(251,113,133,.25); }
-.race__card-tag--good{ background:rgba(52,211,153,.12); color:#34d399; border:1px solid rgba(52,211,153,.25); }
-.race__card--good{ border-color:rgba(96,165,250,.35); overflow:hidden; }
-.race__card-glow{ position:absolute; inset:0; background:radial-gradient(600px circle at 50% 0,rgba(96,165,250,.15),transparent 60%); pointer-events:none; }
-.race__card--good mark{ background:linear-gradient(transparent 60%,rgba(96,165,250,.28) 0); color:#fff; padding:0 .1em; border-radius:2px; }
-.race__arrow{ color:var(--azure); opacity:.7; }
-
-/* ══════════════════ LEVELS (horizontal) ══════════════════ */
-.levels{ position:relative; }
-.levels__pin{ min-height:100svh; display:flex; flex-direction:column; justify-content:center; overflow:hidden; padding:6vh 0; }
-.levels__intro{ max-width:var(--maxw); margin:0 auto 3rem; padding:0 clamp(1.2rem,5vw,3rem); }
-.levels__intro p{ color:var(--muted); margin-top:1rem; max-width:44ch; }
-.levels__title{ font-family:var(--display); font-weight:600; letter-spacing:-.03em; line-height:1.05; font-size:clamp(2rem,5vw,3.6rem); }
-.levels__hint{ display:inline-block; margin-top:1.4rem; font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-2); }
-.levels__track{ display:flex; gap:1.5rem; padding:0 clamp(1.2rem,5vw,3rem); width:max-content; will-change:transform; }
-.levels__panel{ width:min(80vw,360px); flex:none; padding:2.4rem 2rem; min-height:300px; display:flex; flex-direction:column; justify-content:flex-end; position:relative; overflow:hidden; }
-.levels__panel h3{ font-family:var(--display); font-size:1.5rem; font-weight:600; margin-bottom:.7rem; }
-.levels__panel p{ color:var(--muted); font-size:.98rem; }
-.levels__n{ position:absolute; top:1.6rem; left:2rem; font-family:var(--display); font-size:.85rem; font-weight:600; letter-spacing:.1em; color:var(--muted-2); }
-.levels__panel--peak{ border-color:rgba(96,165,250,.4); background:linear-gradient(160deg,rgba(96,165,250,.14),rgba(56,189,248,.05)); }
-.levels__panel--peak::after{ content:""; position:absolute; top:-40%; right:-30%; width:70%; height:120%; background:radial-gradient(circle,rgba(96,165,250,.4),transparent 65%); filter:blur(30px); }
-
-/* ══════════════════ ROI ══════════════════ */
-.roi{ max-width:var(--maxw); margin:0 auto; padding:14vh clamp(1.2rem,5vw,3rem); }
-.roi__head{ max-width:760px; margin-bottom:4rem; }
-.roi__stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; margin-bottom:2.5rem; }
-@media (max-width:760px){ .roi__stats{ grid-template-columns:1fr; } }
-.roi__stat{ padding:2.4rem 2rem; }
-.roi__num{ font-family:var(--display); font-size:clamp(2.6rem,6vw,3.6rem); font-weight:600; letter-spacing:-.03em; line-height:1;
-  background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.roi__num em{ font-style:normal; }
-.roi__stat p{ margin-top:1rem; color:var(--muted); }
-.roi__stat strong{ color:var(--ink); }
-.roi__case{ padding:clamp(2rem,4vw,3rem); position:relative; overflow:hidden; }
-.roi__case-glow{ position:absolute; top:-30%; left:30%; width:40%; height:120%; background:radial-gradient(circle,rgba(56,189,248,.22),transparent 65%); filter:blur(40px); pointer-events:none; }
-.roi__case-tag{ font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--cyan); }
-.roi__case-head h3{ font-family:var(--display); font-size:clamp(1.3rem,2.6vw,1.8rem); font-weight:600; margin-top:.6rem; }
-.roi__case-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; margin-top:2.4rem; }
-@media (max-width:760px){ .roi__case-grid{ grid-template-columns:repeat(2,1fr); } }
-.roi__case-grid > div{ padding:1.4rem; border-radius:16px; background:rgba(255,255,255,.03); border:1px solid var(--stroke); }
-.roi__hi{ background:linear-gradient(160deg,rgba(96,165,250,.14),rgba(56,189,248,.05))!important; border-color:rgba(96,165,250,.3)!important; }
-.roi__k{ display:block; font-size:.8rem; color:var(--muted-2); letter-spacing:.04em; }
-.roi__v{ display:block; font-family:var(--display); font-size:1.7rem; font-weight:600; margin-top:.3rem; letter-spacing:-.02em; }
-.roi__v small{ font-size:.7rem; color:var(--muted); font-weight:400; margin-left:.15rem; }
-.roi__d{ display:block; font-size:.78rem; color:var(--muted-2); margin-top:.4rem; }
-
-/* ══════════════════ AGENDA ══════════════════ */
-.agenda{ max-width:900px; margin:0 auto; padding:14vh clamp(1.2rem,5vw,3rem); }
-.agenda__head{ margin-bottom:4.5rem; }
-.agenda__timeline{ position:relative; padding-left:2.2rem; }
-.agenda__spine{ position:absolute; left:6px; top:6px; bottom:0; width:2px; transform-origin:top;
-  background:linear-gradient(to bottom,var(--iris),var(--cyan)); box-shadow:0 0 14px rgba(96,165,250,.5); }
-.agenda__item{ position:relative; margin-bottom:2.4rem; }
-.agenda__dot{ position:absolute; left:-2.2rem; top:.4rem; width:14px; height:14px; border-radius:50%; background:var(--bg);
-  border:2px solid var(--azure); box-shadow:0 0 0 4px rgba(14,165,233,.12); transform:translateX(-1px); }
-.agenda__time{ font-family:var(--display); font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; color:var(--cyan); margin-bottom:.8rem; }
-.agenda__card{ padding:1.7rem 1.9rem; position:relative; overflow:hidden; }
-.agenda__card h3{ font-family:var(--display); font-size:1.25rem; font-weight:600; margin-bottom:.55rem; }
-.agenda__card p{ color:var(--muted); font-size:.98rem; }
-.agenda__card--soft{ opacity:.75; }
-.agenda__card--peak{ border-color:rgba(96,165,250,.4); }
-.agenda__card-glow{ position:absolute; top:-40%; right:-10%; width:50%; height:160%; background:radial-gradient(circle,rgba(96,165,250,.3),transparent 65%); filter:blur(34px); pointer-events:none; }
-
-/* ══════════════════ PROOF ══════════════════ */
-.proof{ border-block:1px solid var(--stroke); padding:8vh 0; }
-.proof__grid{ max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.2rem,5vw,3rem); display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
-@media (max-width:760px){ .proof__grid{ grid-template-columns:1fr; text-align:center; gap:3rem; } }
-.proof__cell span{ font-family:var(--display); font-size:clamp(3rem,8vw,5rem); font-weight:600; letter-spacing:-.04em; line-height:1;
-  background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.proof__cell p{ margin-top:1rem; color:var(--muted); max-width:34ch; }
-
-/* ══════════════════ OFFER ══════════════════ */
-.offer{ max-width:var(--maxw); margin:0 auto; padding:14vh clamp(1.2rem,5vw,3rem); position:relative; }
-.offer__aura{ position:absolute; top:20%; left:50%; transform:translateX(-50%); width:70%; height:60%;
-  background:radial-gradient(circle,rgba(37,99,235,.25),transparent 65%); filter:blur(80px); pointer-events:none; }
-.offer__head{ text-align:center; margin-bottom:4rem; }
-.offer__head .section-eyebrow::before{ display:none; }
-.offer__card{ display:grid; grid-template-columns:1.4fr 1fr; overflow:hidden; position:relative; }
-@media (max-width:820px){ .offer__card{ grid-template-columns:1fr; } }
-.offer__card-glow{ position:absolute; top:-30%; left:20%; width:60%; height:120%; background:radial-gradient(circle,rgba(96,165,250,.18),transparent 60%); filter:blur(50px); pointer-events:none; }
-.offer__card-left{ padding:clamp(2rem,4vw,3.2rem); }
-.offer__badge{ display:inline-block; font-size:.72rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; padding:.35rem .8rem; border-radius:100px; background:rgba(96,165,250,.12); color:#bae6fd; border:1px solid rgba(96,165,250,.25); }
-.offer__card-left h3{ font-family:var(--display); font-size:clamp(1.5rem,3vw,2.1rem); font-weight:600; letter-spacing:-.02em; margin:1.2rem 0 .8rem; }
-.offer__desc{ color:var(--muted); margin-bottom:1.8rem; }
-.offer__includes{ list-style:none; display:grid; gap:.8rem; }
-.offer__includes li{ position:relative; padding-left:1.9rem; color:var(--muted); font-size:.96rem; }
-.offer__includes li::before{ content:""; position:absolute; left:0; top:.35em; width:16px; height:16px; border-radius:50%;
-  background:var(--grad); box-shadow:0 0 10px rgba(96,165,250,.5); }
-.offer__includes li::after{ content:"✓"; position:absolute; left:3px; top:.15em; font-size:.7rem; color:#0a0713; font-weight:800; }
-.offer__card-right{ padding:clamp(2rem,4vw,3.2rem); display:flex; flex-direction:column; justify-content:center; gap:1.2rem;
-  background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01)); border-left:1px solid var(--stroke); }
-@media (max-width:820px){ .offer__card-right{ border-left:none; border-top:1px solid var(--stroke); } }
-.offer__price-label{ font-size:.85rem; color:var(--muted); }
-.offer__price{ display:flex; flex-direction:column; }
-.offer__price small{ font-size:.8rem; color:var(--muted-2); letter-spacing:.04em; }
-.offer__price strong{ font-family:var(--display); font-size:clamp(2.4rem,5vw,3.2rem); font-weight:600; letter-spacing:-.03em; line-height:1.02;
-  background:var(--grad); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.offer__price span{ font-size:.9rem; color:var(--muted); }
-.offer__guarantee{ font-size:.82rem; color:var(--muted-2); text-align:center; }
-
-/* ══════════════════ FINALE ══════════════════ */
-.finale{ position:relative; text-align:center; padding:20vh clamp(1.2rem,5vw,3rem); overflow:hidden; }
-.finale__aura{ position:absolute; inset:0; background:radial-gradient(ellipse 60% 50% at 50% 60%,rgba(37,99,235,.22),transparent 70%); pointer-events:none; }
-.finale__title{ font-family:var(--display); font-weight:600; letter-spacing:-.035em; line-height:1.04; font-size:clamp(2.4rem,7vw,5rem); }
-.finale__big{ font-family:var(--serif); font-style:italic; font-size:clamp(3rem,11vw,8rem); line-height:1; margin:1rem 0 3rem; }
-.btn--xl{ position:relative; z-index:2; }
-
-/* ══════════════════ FOOTER ══════════════════ */
-.footer{ border-top:1px solid var(--stroke); padding:5vh clamp(1.2rem,5vw,3rem); text-align:center; position:relative; z-index:2; }
-.footer__brand{ display:inline-flex; align-items:center; gap:.5rem; font-family:var(--display); font-weight:600; font-size:1.05rem; }
-.footer__brand em{ color:var(--azure); font-style:normal; }
-.footer__tag{ font-family:var(--serif); font-style:italic; font-size:1.3rem; margin:1.2rem 0; color:var(--ink); }
-.footer__note{ max-width:60ch; margin:0 auto; font-size:.8rem; color:var(--muted-2); line-height:1.7; }
-
-/* ══════════════════ REVEAL (JS-gated) ══════════════════ */
-.js [data-reveal]{ opacity:0; transform:translateY(30px); filter:blur(6px); }
-.js .split-line{ overflow:hidden; }
-.js .split-line .word{ display:inline-block; transform:translateY(110%); }
-
-/* ══════════════════ ENROLL / FORM ══════════════════ */
-.enroll{ max-width:var(--maxw); margin:0 auto; padding:14vh clamp(1.2rem,5vw,3rem); position:relative; }
-.enroll__aura{ position:absolute; top:10%; left:50%; transform:translateX(-50%); width:75%; height:70%;
-  background:radial-gradient(circle,rgba(37,99,235,.22),transparent 65%); filter:blur(80px); pointer-events:none; }
-.enroll__grid{ display:grid; grid-template-columns:1fr 1.1fr; gap:clamp(2rem,5vw,4.5rem); align-items:center; position:relative; z-index:2; }
-@media (max-width:900px){ .enroll__grid{ grid-template-columns:1fr; } }
-.enroll__intro .section-eyebrow::before{ background:var(--stroke-strong); }
-.enroll__perks{ list-style:none; display:flex; flex-wrap:wrap; gap:1rem 1.6rem; margin-top:2.2rem; }
-.enroll__perks li{ position:relative; padding-left:1.6rem; color:var(--muted); font-size:.9rem; }
-.enroll__perks li::before{ content:""; position:absolute; left:0; top:.35em; width:14px; height:14px; border-radius:50%;
-  background:var(--grad); box-shadow:0 0 10px rgba(96,165,250,.5); }
-.enroll__perks li::after{ content:"✓"; position:absolute; left:2.5px; top:.1em; font-size:.62rem; color:#04060c; font-weight:800; }
-
-.enroll__col{ position:relative; }
-.enroll__form{ padding:clamp(1.8rem,3vw,2.6rem); position:relative; overflow:hidden; display:grid; gap:1.15rem; }
-.enroll__form-glow{ position:absolute; top:-30%; left:20%; width:60%; height:120%;
-  background:radial-gradient(circle,rgba(96,165,250,.16),transparent 60%); filter:blur(50px); pointer-events:none; }
-.enroll__form > *{ position:relative; z-index:1; }
-
-.field label{ display:block; font-size:.82rem; color:var(--muted); margin-bottom:.5rem; letter-spacing:.01em; }
-.field label em{ color:var(--muted-2); font-style:normal; }
-.field input, .field textarea, .select-wrap select{
-  width:100%; padding:.85rem 1rem; border-radius:12px; color:var(--ink);
-  background:rgba(255,255,255,.03); border:1px solid var(--stroke);
-  font-family:var(--font); font-size:.95rem; line-height:1.4;
-  transition:border-color .3s var(--ease),box-shadow .3s var(--ease),background .3s; outline:none;
-}
-.field textarea{ resize:vertical; min-height:88px; }
-.field input::placeholder, .field textarea::placeholder{ color:var(--muted-2); }
-.field input:focus, .field textarea:focus, .select-wrap select:focus{
-  border-color:rgba(96,165,250,.6); background:rgba(96,165,250,.05);
-  box-shadow:0 0 0 4px rgba(37,99,235,.14);
-}
-.field-row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-@media (max-width:480px){ .field-row{ grid-template-columns:1fr; } }
-.select-wrap{ position:relative; }
-.select-wrap select{ appearance:none; -webkit-appearance:none; cursor:pointer; padding-right:2.4rem; }
-.select-wrap::after{ content:""; position:absolute; right:1rem; top:50%; width:8px; height:8px;
-  border-right:2px solid var(--muted); border-bottom:2px solid var(--muted);
-  transform:translateY(-70%) rotate(45deg); pointer-events:none; }
-.select-wrap select option{ background:#0a0f1a; color:var(--ink); }
-
-.field__error{ display:block; font-size:.75rem; color:var(--rose); margin-top:.4rem; min-height:.9em;
-  opacity:0; transform:translateY(-3px); transition:opacity .25s,transform .25s; }
-.field.is-invalid input, .field.is-invalid textarea{ border-color:rgba(251,113,133,.6); box-shadow:0 0 0 4px rgba(251,113,133,.1); }
-.field.is-invalid .field__error{ opacity:1; transform:none; }
-
-.enroll__form button[type=submit]{ margin-top:.4rem; }
-.enroll__form button[disabled]{ opacity:.7; cursor:progress; }
-.enroll__privacy{ font-size:.75rem; color:var(--muted-2); text-align:center; margin-top:.2rem; }
-
-.enroll__success{ padding:clamp(2rem,4vw,3rem); text-align:center; display:flex; flex-direction:column; gap:1rem; align-items:center; }
-.enroll__success-icon{ width:64px; height:64px; border-radius:50%; display:grid; place-items:center;
-  font-size:1.8rem; color:#04060c; font-weight:800; background:var(--grad); box-shadow:0 10px 30px -8px rgba(37,99,235,.7); }
-.enroll__success h3{ font-family:var(--display); font-size:1.6rem; font-weight:600; }
-.enroll__success p{ color:var(--muted); max-width:40ch; }
-.enroll__success-actions{ display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; margin-top:.6rem; }
-
-/* Reduced motion */
-@media (prefers-reduced-motion:reduce){
-  *{ animation:none!important; transition:none!important; }
-  .js [data-reveal]{ opacity:1!important; transform:none!important; filter:none!important; }
-  .js .split-line .word{ transform:none!important; }
-  .hero__orb,.ambient__glow{ display:none; }
-}
-
+  /* ================ reveals ================ */
+  html.static .rv{opacity:1 !important;transform:none !important;transition:none !important}
+  html.static .msg{opacity:1 !important;transform:none !important}
+  html.static .chart-svg .line{stroke-dashoffset:0;animation:none}
+  html.static .chart-svg .area,html.static .chart-svg .dot{opacity:1;transition:none}
+  html.static .fbar{transition:none}
+  .rv{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  .rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+  @media (prefers-reduced-motion:reduce){
+    .rv{opacity:1;transform:none;transition:none}
+    .marq .track{animation:none}
+    .chip{animation:none}
+    .chart-svg .line{stroke-dashoffset:0;animation:none}
+    .chart-svg .area,.chart-svg .dot{opacity:1;transition:none}
+    html{scroll-behavior:auto}
+  }
+  :focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
 </style>
 </head>
 <body>
-  <!-- ░░ Custom cursor ░░ -->
-  <div class="cursor" data-cursor>
-    <div class="cursor__dot" data-cursor-dot></div>
-    <div class="cursor__ring" data-cursor-ring></div>
-  </div>
 
-  <!-- ░░ Scroll progress ░░ -->
-  <div class="scroll-progress" aria-hidden="true"><span data-progress></span></div>
-
-  <!-- ░░ Grain + ambient light layers ░░ -->
-  <div class="ambient" aria-hidden="true">
-    <div class="ambient__glow ambient__glow--1"></div>
-    <div class="ambient__glow ambient__glow--2"></div>
-    <div class="ambient__glow ambient__glow--3"></div>
-    <div class="ambient__grid"></div>
-  </div>
-  <div class="grain" aria-hidden="true"></div>
-
-  <!-- ░░ Nav ░░ -->
-  <header class="nav" data-nav>
-    <a href="#top" class="nav__brand" data-magnetic>
-      <span class="nav__spark"></span>
-      <span>IA<em>·</em>PME</span>
+<header id="hd">
+  <div class="head">
+    <a class="logo" href="/" aria-label="Influência Profissional">
+      <span class="mark">iP</span>
+      <span>Influência<b>Profissional</b></span>
     </a>
-    <nav class="nav__links">
-      <a href="#gap" data-cursor-label="ver">O abismo</a>
-      <a href="#metodo" data-cursor-label="ver">Método</a>
-      <a href="#agenda" data-cursor-label="ver">Agenda</a>
-      <a href="#oferta" data-cursor-label="ver">Investimento</a>
+    <nav aria-label="Seções">
+      <a href="#solucoes">Programa</a>
+      <a href="#metodo">Método</a>
+      <a href="#dados">Números</a>
+      <a href="#ia">Prática</a>
+      <a href="#agenda">Agenda</a>
     </nav>
-    <a href="#inscricao" class="btn btn--nav" data-magnetic data-cursor-label="→">
-      Garantir vaga
-    </a>
-  </header>
+    <a class="cta-btn" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Workshop%20de%20Letramento%20em%20IA%20para%20PMEs." target="_blank" rel="noopener">Quero participar</a>
+  </div>
+</header>
 
-  <main id="top">
+<main id="top">
 
-    <!-- ══════════════════ 1 · HERO ══════════════════ -->
-    <section class="hero" data-hero>
-      <div class="hero__parallax" data-parallax-scene>
-        <div class="hero__orb hero__orb--a" data-depth="0.10"></div>
-        <div class="hero__orb hero__orb--b" data-depth="0.22"></div>
-        <div class="hero__orb hero__orb--c" data-depth="0.16"></div>
-        <canvas class="hero__particles" data-particles></canvas>
-      </div>
-
-      <div class="hero__inner" data-tilt>
-        <div class="hero__chip reveal" data-reveal>
-          <span class="hero__chip-dot"></span>
-          Workshop presencial &amp; on-line · 4 horas
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker rv">Workshop · Letramento em IA para PMEs</span>
+        <h1 class="rv d1">O diferencial não é usar IA — é saber <span class="hl">usar bem</span>.</h1>
+        <p class="sub rv d2">Um workshop <strong>mão na massa</strong> que leva donos, gestores e equipes da <strong>curiosidade</strong> ao uso consciente, prático e seguro da Inteligência Artificial — com método, governança e <strong>ROI real</strong>.</p>
+        <div class="hero-actions rv d3">
+          <a class="btn blue" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Workshop%20de%20Letramento%20em%20IA%20para%20PMEs." target="_blank" rel="noopener">Quero participar</a>
+          <a class="btn line" href="#solucoes">Ver o programa</a>
         </div>
-
-        <h1 class="hero__title" data-split-lines>
-          A sua PME já ouviu falar de IA.<br />
-          Agora ela vai <span class="grad">usar de verdade.</span>
-        </h1>
-
-        <p class="hero__sub reveal" data-reveal>
-          Da curiosidade à maturidade — um workshop mão na massa que transforma
-          donos, gestores e equipes em profissionais que sabem <strong>onde a IA gera valor</strong>,
-          conversam bem com ela e implementam com <strong>método, segurança e ROI</strong>.
-        </p>
-
-        <div class="hero__actions reveal" data-reveal>
-          <a href="#inscricao" class="btn btn--primary" data-magnetic data-cursor-label="vamos">
-            <span>Quero dominar a IA</span>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <a href="#gap" class="btn btn--ghost" data-magnetic data-cursor-label="por quê">
-            Por que agora?
-          </a>
-        </div>
-
-        <div class="hero__meta reveal" data-reveal>
-          <div class="hero__meta-item"><strong>Zero</strong><span>pré-requisito técnico</span></div>
-          <div class="hero__meta-item"><strong>Sai com</strong><span>plano 30/60/90</span></div>
-          <div class="hero__meta-item"><strong>8–25</strong><span>por turma</span></div>
+        <div class="hero-badges rv d3">
+          <span class="hb"><b>4h</b> modulares</span>
+          <span class="hb"><b>Zero</b> pré-requisito técnico</span>
+          <span class="hb">Sai com <b>plano 30/60/90</b></span>
         </div>
       </div>
-
-      <a href="#gap" class="hero__scroll" aria-label="Rolar" data-cursor-hide>
-        <span class="hero__scroll-line"></span>
-        <span class="hero__scroll-txt">role a experiência</span>
-      </a>
-    </section>
-
-    <!-- ══════════════════ TRUST MARQUEE ══════════════════ -->
-    <section class="marquee" aria-label="Baseado em pesquisas recentes">
-      <div class="marquee__label">Fundamentado em pesquisas 2025–2026</div>
-      <div class="marquee__track" data-marquee>
-        <div class="marquee__row">
-          <span>Sebrae</span><i>◆</i><span>Microsoft</span><i>◆</i><span>Salesforce</span><i>◆</i>
-          <span>HostGator</span><i>◆</i><span>G4</span><i>◆</i><span>OCDE</span><i>◆</i>
-          <span>U.S. Chamber of Commerce</span><i>◆</i><span>Business.com</span><i>◆</i>
-        </div>
-        <div class="marquee__row" aria-hidden="true">
-          <span>Sebrae</span><i>◆</i><span>Microsoft</span><i>◆</i><span>Salesforce</span><i>◆</i>
-          <span>HostGator</span><i>◆</i><span>G4</span><i>◆</i><span>OCDE</span><i>◆</i>
-          <span>U.S. Chamber of Commerce</span><i>◆</i><span>Business.com</span><i>◆</i>
-        </div>
+      <div class="hero-visual rv d2">
+        <div class="ph"><img src="../assets/treinamento.jpg" alt="Equipe em treinamento de IA" width="1800" height="1013" fetchpriority="high"></div>
+        <div class="chip c1"><span class="cic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1L12 16.9 5.7 21l2.3-7.1-6-4.5h7.6z"/></svg></span><div><b class="count" data-target="22" data-suffix="%">0</b><span>usam IA com método</span></div></div>
+        <div class="chip c2"><span class="cic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><div><b><span class="count" data-target="5.6" data-decimals="1">0</span>h</b><span>economia por semana</span></div></div>
+        <div class="chip c3"><span class="cic"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span><div><b>+<span class="count" data-target="91">0</span>%</b><span>relatam mais receita</span></div></div>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- ══════════════════ 2 · CURIOSIDADE — O ABISMO ══════════════════ -->
-    <section class="gap" id="gap">
-      <div class="gap__sticky">
-        <p class="section-eyebrow" data-reveal>Capítulo 01 — O contexto</p>
-        <h2 class="gap__headline" data-split-lines>
-          Quase todo mundo já <em>experimentou</em> IA.<br />
-          Quase ninguém <span class="grad">usa bem.</span>
-        </h2>
-        <p class="gap__lead" data-reveal>
-          Esse é o <strong>abismo de execução</strong> de 2026. O gargalo não é mais o acesso à
-          tecnologia — é o conhecimento de como aplicá-la com método. E é exatamente aí que
-          nasce a sua vantagem competitiva.
-        </p>
+  <!-- MARQUEE -->
+  <div class="marq" aria-hidden="true">
+    <div class="track">
+      <div class="seq"><span>Prompt</span><span>Contexto</span><span>R.A.C.E.</span><span>LLM</span><span>RAG</span><span>Agentes</span><span>ROI</span><span>Governança</span><span>LGPD</span><span><i>✦</i></span></div>
+      <div class="seq"><span>Prompt</span><span>Contexto</span><span>R.A.C.E.</span><span>LLM</span><span>RAG</span><span>Agentes</span><span>ROI</span><span>Governança</span><span>LGPD</span><span><i>✦</i></span></div>
+    </div>
+  </div>
 
-        <div class="gap__bars">
-          <div class="gap__bar" data-reveal>
-            <div class="gap__bar-track"><span class="gap__bar-fill" data-bar="61"></span></div>
-            <div class="gap__bar-info">
-              <span class="gap__bar-num" data-count="61" data-suffix="%">0%</span>
-              <span class="gap__bar-desc">das PMEs brasileiras já usam <strong>alguma</strong> IA</span>
-            </div>
-          </div>
-          <div class="gap__bar gap__bar--accent" data-reveal>
-            <div class="gap__bar-track"><span class="gap__bar-fill" data-bar="22"></span></div>
-            <div class="gap__bar-info">
-              <span class="gap__bar-num" data-count="22" data-suffix="%">0%</span>
-              <span class="gap__bar-desc">usam de forma <strong>estruturada</strong> — o abismo</span>
-            </div>
-          </div>
-        </div>
-
-        <p class="gap__punch" data-reveal>
-          “Usar IA não será mais o diferencial. O diferencial será
-          <span class="grad">saber usá-la da melhor maneira</span>, com as informações do seu negócio.”
-        </p>
+  <!-- PROGRAMA -->
+  <section id="solucoes">
+    <span class="side-label">// Programa</span>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Programa</span>
+        <h2>Tudo que você vai <em>dominar</em> em 4 horas</h2>
+        <p class="lead">Da base teórica ao assistente rodando: seis blocos que constroem vocabulário, critério e mão na massa. Toque em cada um para ver o que entra.</p>
       </div>
-    </section>
-
-    <!-- ══════════════════ 3 · AUTORIDADE — O QUE VOCÊ DOMINA ══════════════════ -->
-    <section class="learn" id="metodo">
-      <div class="learn__head">
-        <p class="section-eyebrow" data-reveal>Capítulo 02 — A promessa</p>
-        <h2 class="section-title" data-split-lines>
-          Você não vira cientista de dados.<br />
-          Você vira <span class="grad">quem decide com IA.</span>
-        </h2>
-        <p class="section-lead" data-reveal>
-          Seis competências que separam quem improvisa de quem implementa com governança.
-        </p>
-      </div>
-
-      <div class="learn__grid">
-        <article class="glass card learn__card" data-reveal data-tilt-card>
-          <div class="card__glow"></div>
-          <div class="learn__icon">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5L12 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Desmistificar sem jargão</h3>
-          <p>Explique, em linguagem simples, o que é IA, IA Generativa, LLM e agentes — sem mitos.</p>
-        </article>
-
-        <article class="glass card learn__card" data-reveal data-tilt-card>
-          <div class="card__glow"></div>
-          <div class="learn__icon">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Conhecer os limites</h3>
-          <p>Reconheça forças e riscos — alucinação, viés e dados — para usar com responsabilidade.</p>
-        </article>
-
-        <article class="glass card learn__card" data-reveal data-tilt-card>
-          <div class="card__glow"></div>
-          <div class="learn__icon">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M4 17l6-6-6-6M12 19h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Escrever bons comandos</h3>
-          <p>Engenharia de prompt e de contexto que gera respostas úteis e consistentes.</p>
-        </article>
-
-        <article class="glass card learn__card" data-reveal data-tilt-card>
-          <div class="card__glow"></div>
-          <div class="learn__icon">
-            <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M21 21l-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Mapear oportunidades</h3>
-          <p>Comece pelo “gargalo que dói” e encontre onde a IA gera valor de verdade.</p>
-        </article>
-
-        <article class="glass card learn__card" data-reveal data-tilt-card>
-          <div class="card__glow"></div>
-          <div class="learn__icon">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M3 3v18h18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M7 14l3-4 3 3 5-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>Estimar ROI e payback</h3>
-          <p>Meça ganho, retorno e tempo de retorno de uma iniciativa de IA de forma simples.</p>
-        </article>
-
-        <article class="glass card learn__card" data-reveal data-tilt-card>
-          <div class="card__glow"></div>
-          <div class="learn__icon">
-            <svg viewBox="0 0 24 24" fill="none"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </div>
-          <h3>Plano 30/60/90</h3>
-          <p>Um plano de ação concreto com governança mínima — LGPD e uso responsável.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ══════════════════ 4 · DEMONSTRAÇÃO — R.A.C.E. ══════════════════ -->
-    <section class="race">
-      <div class="race__grid">
-        <div class="race__intro">
-          <p class="section-eyebrow" data-reveal>Capítulo 03 — A prática</p>
-          <h2 class="section-title" data-split-lines>
-            O framework <span class="grad">R.A.C.E.</span><br />vira mágica em minutos.
-          </h2>
-          <p class="section-lead" data-reveal>
-            Quatro letras que transformam um pedido fraco em um comando que a IA acerta de primeira.
-          </p>
-
-          <ul class="race__list">
-            <li data-reveal><b>R</b><div><strong>Role</strong> — quem a IA deve ser.</div></li>
-            <li data-reveal><b>A</b><div><strong>Action</strong> — o que exatamente fazer.</div></li>
-            <li data-reveal><b>C</b><div><strong>Context</strong> — dados, público e restrições.</div></li>
-            <li data-reveal><b>E</b><div><strong>Expectation</strong> — formato, tom e tamanho da entrega.</div></li>
-          </ul>
-        </div>
-
-        <div class="race__demo" data-reveal>
-          <div class="glass race__card race__card--bad" data-tilt-card>
-            <div class="race__card-tag race__card-tag--bad">✕ Prompt fraco</div>
-            <p>“Escreva um post sobre nosso produto.”</p>
-          </div>
-          <div class="race__arrow" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="none"><path d="M12 5v14M6 13l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <div class="glass race__card race__card--good" data-tilt-card>
-            <div class="race__card-glow"></div>
-            <div class="race__card-tag race__card-tag--good">✓ Prompt R.A.C.E.</div>
-            <p>
-              “<mark>Você é um redator de redes sociais</mark> para uma confeitaria artesanal.
-              <mark>Escreva 3 legendas de Instagram</mark> divulgando nosso brownie vegano.
-              <mark>Público: mulheres 25–40 que valorizam doces sem lactose</mark>; tom acolhedor; 8 mil seguidores.
-              <mark>Até 280 caracteres, 3 hashtags e uma CTA clara.</mark>”
-            </p>
+      <div class="sol-grid">
+        <div class="sol-left rv">
+          <div class="ph">
+            <img src="../assets/equipe.jpg" alt="Equipe aprendendo a usar IA no dia a dia" loading="lazy">
+            <div class="tagline">Da <b>teoria que desmistifica</b> à <b>prática que gera resultado</b> — sem jargão.</div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════ 5 · HORIZONTAL — NÍVEIS DE AGENTE ══════════════════ -->
-    <section class="levels" data-levels>
-      <div class="levels__pin" data-levels-pin>
-        <div class="levels__intro">
-          <p class="section-eyebrow">Capítulo 04 — A fronteira</p>
-          <h2 class="levels__title">Do chatbot<br />ao <span class="grad">agente autônomo.</span></h2>
-          <p>Seis níveis. Um mapa mental para saber até onde a IA pode ir no seu negócio.</p>
-          <span class="levels__hint">arraste / role →</span>
-        </div>
-
-        <div class="levels__track" data-levels-track>
-          <article class="glass levels__panel">
-            <span class="levels__n">Nv 0</span>
-            <h3>LLM puro</h3>
-            <p>Pergunta e resposta, sem memória. O chat simples que todos conhecem.</p>
-          </article>
-          <article class="glass levels__panel">
-            <span class="levels__n">Nv 1</span>
-            <h3>Memória</h3>
-            <p>Lembra o histórico da conversa — contexto de curto e longo prazo.</p>
-          </article>
-          <article class="glass levels__panel">
-            <span class="levels__n">Nv 2</span>
-            <h3>RAG</h3>
-            <p>Consulta a base de conhecimento da <strong>sua</strong> empresa antes de responder.</p>
-          </article>
-          <article class="glass levels__panel">
-            <span class="levels__n">Nv 3</span>
-            <h3>Ferramentas</h3>
-            <p>Executa ações: chama APIs, consulta o Google, envia e-mail e WhatsApp.</p>
-          </article>
-          <article class="glass levels__panel">
-            <span class="levels__n">Nv 4</span>
-            <h3>Autofeedback</h3>
-            <p>Avalia o próprio resultado e repete o ciclo até acertar.</p>
-          </article>
-          <article class="glass levels__panel levels__panel--peak">
-            <span class="levels__n">Nv 5</span>
-            <h3>Multiagentes</h3>
-            <p>Vários especialistas colaboram para resolver uma tarefa complexa.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════ 6 · BENEFÍCIOS EMOCIONAIS — ROI ══════════════════ -->
-    <section class="roi">
-      <div class="roi__head">
-        <p class="section-eyebrow" data-reveal>Capítulo 05 — O retorno</p>
-        <h2 class="section-title" data-split-lines>
-          Não é sobre tecnologia.<br />É sobre <span class="grad">horas e dinheiro de volta.</span>
-        </h2>
-      </div>
-
-      <div class="roi__stats">
-        <div class="glass roi__stat" data-reveal data-tilt-card>
-          <span class="roi__num"><em data-count="5.6" data-decimals="1">0</em>h</span>
-          <p>economizadas por colaborador, <strong>toda semana</strong>.</p>
-        </div>
-        <div class="glass roi__stat" data-reveal data-tilt-card>
-          <span class="roi__num"><em data-count="91">0</em>%</span>
-          <p>das SMBs que usam IA <strong>relatam mais receita</strong>.</p>
-        </div>
-        <div class="glass roi__stat" data-reveal data-tilt-card>
-          <span class="roi__num"><em data-count="2">0</em>×</span>
-          <p>mais chance de <strong>crescer</strong> para quem usa IA.</p>
-        </div>
-      </div>
-
-      <div class="glass roi__case" data-reveal>
-        <div class="roi__case-glow"></div>
-        <div class="roi__case-head">
-          <span class="roi__case-tag">Exemplo real da turma</span>
-          <h3>Responder as 5 dúvidas mais comuns no WhatsApp</h3>
-        </div>
-        <div class="roi__case-grid">
-          <div><span class="roi__k">Custo hoje</span><span class="roi__v">R$ 1.200<small>/mês</small></span><span class="roi__d">40h × R$ 30</span></div>
-          <div><span class="roi__k">Com IA</span><span class="roi__v">R$ 500<small>/mês</small></span><span class="roi__d">assinatura + revisão</span></div>
-          <div class="roi__hi"><span class="roi__k">Ganho</span><span class="roi__v">R$ 700<small>/mês</small></span><span class="roi__d">líquido e recorrente</span></div>
-          <div class="roi__hi"><span class="roi__k">Payback</span><span class="roi__v">1,4<small>mês</small></span><span class="roi__d">o setup se paga sozinho</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════ 7 · AGENDA — TIMELINE ══════════════════ -->
-    <section class="agenda" id="agenda">
-      <div class="agenda__head">
-        <p class="section-eyebrow" data-reveal>Capítulo 06 — A jornada</p>
-        <h2 class="section-title" data-split-lines>
-          4 horas desenhadas como<br />um <span class="grad">roteiro de cinema.</span>
-        </h2>
-        <p class="section-lead" data-reveal>Modular e adaptável a 2h, 8h ou 16h. Teoria que dá o mapa mental, prática que entrega resultado.</p>
-      </div>
-
-      <div class="agenda__timeline">
-        <span class="agenda__spine" data-spine></span>
-
-        <div class="agenda__item" data-reveal>
-          <span class="agenda__dot"></span>
-          <div class="agenda__time">Parte 1 · ~1h45</div>
-          <div class="glass agenda__card">
-            <h3>Fundamentos — por que agora &amp; como a IA “pensa”</h3>
-            <p>As camadas da IA, pesos e viés, tokens, embeddings, janela de contexto, LLMs, alucinação e agentes. Com analogias do churrasco às bonecas russas.</p>
-          </div>
-        </div>
-
-        <div class="agenda__item" data-reveal>
-          <span class="agenda__dot"></span>
-          <div class="agenda__time">Intervalo</div>
-          <div class="glass agenda__card agenda__card--soft">
-            <h3>Pausa &amp; networking</h3>
-            <p>Respira, conversa, troca casos com a turma.</p>
-          </div>
-        </div>
-
-        <div class="agenda__item" data-reveal>
-          <span class="agenda__dot"></span>
-          <div class="agenda__time">Parte 2 · ~2h</div>
-          <div class="glass agenda__card">
-            <h3>Mão na massa — do prompt ao assistente</h3>
-            <p>R.A.C.E. na prática, catálogo de casos de uso por área, mapa de oportunidades com ROI/payback e a construção ao vivo de um assistente no-code com RAG.</p>
-          </div>
-        </div>
-
-        <div class="agenda__item" data-reveal>
-          <span class="agenda__dot"></span>
-          <div class="agenda__time">Encerramento · ~20 min</div>
-          <div class="glass agenda__card agenda__card--peak">
-            <div class="agenda__card-glow"></div>
-            <h3>Seu plano 30/60/90 dias</h3>
-            <p>Cada participante sai com governança mínima, um caso de payback curto escolhido e o compromisso de qual gargalo vai atacar primeiro.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════ SOCIAL PROOF STATS ══════════════════ -->
-    <section class="proof">
-      <div class="proof__grid">
-        <div class="proof__cell" data-reveal><span data-count="75" data-suffix="%"></span><p>das PMEs brasileiras estão otimistas com o impacto da IA</p></div>
-        <div class="proof__cell" data-reveal><span data-count="59" data-suffix="%"></span><p>dos empresários veem a IA como prioridade estratégica</p></div>
-        <div class="proof__cell" data-reveal><span data-count="100" data-suffix="M+"></span><p>usuários do ChatGPT em ~2 meses: a tecnologia mais adotada da história</p></div>
-      </div>
-    </section>
-
-    <!-- ══════════════════ 8 · OFERTA — CLÍMAX ══════════════════ -->
-    <section class="offer" id="oferta">
-      <div class="offer__aura" aria-hidden="true"></div>
-      <div class="offer__head">
-        <p class="section-eyebrow" data-reveal>Capítulo 07 — A decisão</p>
-        <h2 class="section-title" data-split-lines>
-          Comece pequeno.<br /><span class="grad">Comece agora.</span>
-        </h2>
-      </div>
-
-      <div class="glass offer__card" data-reveal data-tilt-card>
-        <div class="offer__card-glow"></div>
-        <div class="offer__card-left">
-          <span class="offer__badge">Workshop completo</span>
-          <h3>Letramento &amp; Introdução à IA para PMEs</h3>
-          <p class="offer__desc">Nível introdutório · presencial ou on-line · turmas de 8 a 25 pessoas · sem pré-requisito técnico.</p>
-          <ul class="offer__includes">
-            <li>4 horas modulares (adaptável a 2h, 8h e 16h)</li>
-            <li>Parte teórica + parte prática mão na massa</li>
-            <li>Framework R.A.C.E. e biblioteca de prompts</li>
-            <li>Catálogo de casos de uso por área</li>
-            <li>Planilha simples de ROI &amp; payback</li>
-            <li>Construção ao vivo de um assistente no-code</li>
-            <li>Plano de ação 30/60/90 e governança mínima (LGPD)</li>
-            <li>Kit do facilitador, quiz e glossário</li>
-          </ul>
-        </div>
-        <div class="offer__card-right">
-          <span class="offer__price-label">Traga a IA para dentro da sua empresa</span>
-          <div class="offer__price">
-            <small>a partir de</small>
-            <strong>sob<br/>medida</strong>
-            <span>para a sua turma</span>
-          </div>
-          <a href="#inscricao" class="btn btn--primary btn--block" data-magnetic data-cursor-label="→">
-            <span>Solicitar proposta</span>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <p class="offer__guarantee">Da curiosidade à maturidade — com método, segurança e resultado.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════ 9 · INSCRIÇÃO — FORMULÁRIO ══════════════════ -->
-    <section class="enroll" id="inscricao">
-      <div class="enroll__aura" aria-hidden="true"></div>
-      <div class="enroll__grid">
-        <div class="enroll__intro">
-          <p class="section-eyebrow" data-reveal>Capítulo 08 — A inscrição</p>
-          <h2 class="section-title" data-split-lines>
-            Vamos levar a IA<br />para dentro da <span class="grad">sua empresa.</span>
-          </h2>
-          <p class="section-lead" data-reveal>
-            Conte um pouco sobre o seu negócio e a sua turma. Retornamos com uma proposta sob
-            medida — presencial ou on-line, adaptada à sua carga horária.
-          </p>
-          <ul class="enroll__perks" data-reveal>
-            <li>Resposta em até 1 dia útil</li>
-            <li>Turmas de 8 a 25 pessoas</li>
-            <li>Sem compromisso</li>
-          </ul>
-        </div>
-
-        <div class="enroll__col">
-          <form class="glass enroll__form" id="lead-form" novalidate data-reveal>
-            <div class="enroll__form-glow" aria-hidden="true"></div>
-
-            <div class="field">
-              <label for="f-nome">Nome completo</label>
-              <input id="f-nome" name="nome" type="text" autocomplete="name" required placeholder="Como podemos te chamar?" />
-              <span class="field__error" data-error></span>
-            </div>
-
-            <div class="field-row">
-              <div class="field">
-                <label for="f-email">E-mail</label>
-                <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com" />
-                <span class="field__error" data-error></span>
-              </div>
-              <div class="field">
-                <label for="f-whats">WhatsApp</label>
-                <input id="f-whats" name="whatsapp" type="tel" autocomplete="tel" required placeholder="(11) 90000-0000" />
-                <span class="field__error" data-error></span>
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="f-empresa">Empresa</label>
-              <input id="f-empresa" name="empresa" type="text" autocomplete="organization" required placeholder="Nome da sua empresa" />
-              <span class="field__error" data-error></span>
-            </div>
-
-            <div class="field-row">
-              <div class="field">
-                <label for="f-formato">Formato</label>
-                <div class="select-wrap">
-                  <select id="f-formato" name="formato">
-                    <option>Presencial</option>
-                    <option>On-line</option>
-                    <option>Tanto faz</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field">
-                <label for="f-turma">Tamanho da turma</label>
-                <div class="select-wrap">
-                  <select id="f-turma" name="turma">
-                    <option>8 a 15 pessoas</option>
-                    <option>16 a 25 pessoas</option>
-                    <option>Mais de 25</option>
-                    <option>Ainda não sei</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="f-msg">Mensagem <em>(opcional)</em></label>
-              <textarea id="f-msg" name="mensagem" rows="3" placeholder="Qual é o “gargalo que dói” hoje na sua operação?"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn--primary btn--block" data-magnetic data-cursor-label="enviar">
-              <span>Solicitar proposta</span>
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="acc rv d1" id="acc">
+          <div class="acc-item open">
+            <button class="acc-btn" aria-expanded="true">
+              <span class="n">/01</span><span class="t">Por que agora</span><span class="x">+</span>
             </button>
-            <p class="enroll__privacy">Seus dados são usados apenas para retornar o contato. Nada de spam.</p>
-          </form>
-
-          <div class="glass enroll__success" id="lead-success" hidden>
-            <div class="enroll__success-icon">✓</div>
-            <h3>Pedido registrado!</h3>
-            <p data-success-msg>Abrimos seu e-mail já preenchido — é só apertar enviar que entramos em contato com a proposta.</p>
-            <div class="enroll__success-actions">
-              <a href="#top" class="btn btn--ghost" data-magnetic data-cursor-label="topo">Voltar ao topo</a>
+            <div class="acc-body">
+              <div class="acc-body-in">
+                O contexto da IA e os números de adoção nas PMEs. O abismo entre <b>adotar</b> e <b>usar bem</b> — e por que é aí que nasce a vantagem competitiva.
+                <div class="mini"><span>Contexto</span><span>Dados</span><span>Oportunidade</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" aria-expanded="false">
+              <span class="n">/02</span><span class="t">O que é IA, de verdade</span><span class="x">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-in">
+                As camadas: IA, Machine Learning, Redes Neurais, Deep Learning e IA Generativa — explicadas com analogias do dia a dia, sem mito nem jargão.
+                <div class="mini"><span>Camadas</span><span>Modelos</span><span>Sem mito</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" aria-expanded="false">
+              <span class="n">/03</span><span class="t">Como a IA “pensa”</span><span class="x">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-in">
+                Pesos e viés, tokens, embeddings e janela de contexto. Você tira a IA do campo da “mágica” e passa a enxergar onde ela erra — e por quê.
+                <div class="mini"><span>Tokens</span><span>Embeddings</span><span>Contexto</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" aria-expanded="false">
+              <span class="n">/04</span><span class="t">IA Generativa &amp; LLMs</span><span class="x">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-in">
+                GPT, Claude e Gemini: o que fazem bem, alucinação, temperatura e limites. A regra de ouro para conviver com o erro e reduzi-lo com bom contexto.
+                <div class="mini"><span>LLMs</span><span>Alucinação</span><span>Limites</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" aria-expanded="false">
+              <span class="n">/05</span><span class="t">Dos LLMs aos Agentes</span><span class="x">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-in">
+                Memória, RAG, ferramentas e multiagentes: quando a IA deixa de só conversar e passa a decidir e agir para cumprir um objetivo.
+                <div class="mini"><span>RAG</span><span>Ferramentas</span><span>Agentes</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="acc-item">
+            <button class="acc-btn" aria-expanded="false">
+              <span class="n">/06</span><span class="t">Prática &amp; Governança</span><span class="x">+</span>
+            </button>
+            <div class="acc-body">
+              <div class="acc-body-in">
+                Framework R.A.C.E., catálogo de casos de uso por área, ROI e payback, um assistente no-code ao vivo e governança mínima (LGPD).
+                <div class="mini"><span>R.A.C.E.</span><span>ROI</span><span>LGPD</span></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ══════════════════ FINAL CTA ══════════════════ -->
-    <section class="finale">
-      <div class="finale__aura" aria-hidden="true"></div>
-      <h2 class="finale__title" data-split-lines>
-        Em 2026, usar IA já<br />não é o diferencial.
-      </h2>
-      <p class="finale__big grad" data-reveal>Usar bem, é.</p>
-      <a href="#inscricao" class="btn btn--primary btn--xl" data-magnetic data-cursor-label="bora">
-        <span>Garantir minha vaga</span>
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </section>
-  </main>
+  <!-- MÉTODO -->
+  <section id="metodo">
+    <span class="side-label">// Método</span>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Como funciona</span>
+        <h2>Uma jornada <em>do improviso ao método</em></h2>
+        <p class="lead">Quatro movimentos que transformam curiosidade em um plano de ação concreto — nenhum conteúdo solto, tudo aplicado ao seu negócio.</p>
+      </div>
+      <div class="mt-steps watch">
+        <div class="mt rv"><span class="bar"></span><h3>Fundamentos</h3><p>Construímos o vocabulário e o modelo mental: o que é IA, como ela funciona e por que agora.</p></div>
+        <div class="mt rv d1"><span class="bar"></span><h3>Mão na massa</h3><p>Você escreve prompts com R.A.C.E., mapeia casos de uso e monta um assistente ao vivo.</p></div>
+        <div class="mt rv d2"><span class="bar"></span><h3>Oportunidades</h3><p>Encontramos o “gargalo que dói” e estimamos ganho, ROI e payback de forma simples.</p></div>
+        <div class="mt rv d3"><span class="bar"></span><h3>Plano 30/60/90</h3><p>Cada participante sai com governança mínima e o primeiro projeto de payback curto definido.</p></div>
+      </div>
+    </div>
+  </section>
 
-  <footer class="footer">
-    <div class="footer__brand"><span class="nav__spark"></span> IA<em>·</em>PME</div>
-    <p class="footer__tag">Transformamos pessoas e empresas para serem à prova de futuros.</p>
-    <p class="footer__note">Workshop de Letramento e Introdução à IA para PMEs · Guia do Facilitador. Estatísticas 2025–2026 (Sebrae, Microsoft, Salesforce, G4, OCDE) servem para mostrar a tendência, não como dado contábil exato.</p>
-  </footer>
+  <!-- NÚMEROS -->
+  <section id="dados">
+    <span class="side-label">// Números</span>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Panorama</span>
+        <h2>Os números que explicam <em>a urgência</em></h2>
+        <p class="lead">A adoção acelera e o ganho é real para quem usa bem — pesquisas 2025–2026 (Sebrae, Microsoft, Salesforce, G4).</p>
+      </div>
 
-  <!-- Libs -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
-  <script>
-/* ══════════════════════════════════════════════════════════
-   Letramento em IA para PMEs — interaction layer
-   Lenis · GSAP/ScrollTrigger · SplitType · Canvas particles
-   Progressive enhancement: content is visible without JS.
-   ══════════════════════════════════════════════════════════ */
-(() => {
-  'use strict';
+      <div class="counters watch rv">
+        <div class="cnt"><b><span class="count" data-target="61">0</span><i>%</i></b><span>já usam alguma IA</span></div>
+        <div class="cnt"><b><span class="count" data-target="22">0</span><i>%</i></b><span>usam com método</span></div>
+        <div class="cnt"><b><span class="count" data-target="5.6" data-decimals="1">0</span><i>h</i></b><span>economia por semana</span></div>
+        <div class="cnt"><b>+<span class="count" data-target="91">0</span><i>%</i></b><span>relatam mais receita</span></div>
+      </div>
 
-  const doc = document.documentElement;
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isTouch = window.matchMedia('(hover: none)').matches;
-  const hasGSAP = typeof window.gsap !== 'undefined';
+      <div class="panel">
+        <div class="card watch rv">
+          <h3>Adoção</h3>
+          <p class="big">Da curiosidade à <em>escala</em> nas PMEs</p>
+          <svg class="chart-svg" viewBox="0 0 520 260" role="img" aria-label="Gráfico da adoção de IA em PMEs de 2022 a 2026">
+            <defs>
+              <linearGradient id="lg1" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#1355FF"/><stop offset="1" stop-color="#2FB6FF"/>
+              </linearGradient>
+              <linearGradient id="ag1" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="rgba(19,85,255,.25)"/><stop offset="1" stop-color="rgba(19,85,255,0)"/>
+              </linearGradient>
+            </defs>
+            <line class="grid-l" x1="40" y1="30" x2="40" y2="215"/>
+            <line class="grid-l" x1="40" y1="215" x2="500" y2="215"/>
+            <line class="grid-l" x1="40" y1="122" x2="500" y2="122" stroke-dasharray="4 6"/>
+            <line class="grid-l" x1="40" y1="30" x2="500" y2="30" stroke-dasharray="4 6"/>
+            <text class="lbl" x="14" y="219">20%</text>
+            <text class="lbl" x="14" y="126">40%</text>
+            <text class="lbl" x="14" y="34">61%</text>
+            <text class="lbl" x="40" y="242">2022</text>
+            <text class="lbl" x="255" y="242">2024</text>
+            <text class="lbl" x="470" y="242">2026</text>
+            <path class="area" d="M40,208 C120,200 170,182 235,150 C300,118 360,92 500,38 L500,215 L40,215 Z"/>
+            <path class="line" d="M40,208 C120,200 170,182 235,150 C300,118 360,92 500,38"/>
+            <circle class="dot" cx="500" cy="38" r="6"/>
+            <circle class="dot" cx="235" cy="150" r="5"/>
+          </svg>
+        </div>
+        <div class="card watch rv d1">
+          <h3>Do gargalo ao retorno</h3>
+          <p class="big">Como a IA vira <em>ganho de verdade</em></p>
+          <div class="funnel">
+            <div class="fstep"><div class="fbar"><b>Gargalo que dói</b><span>horas perdidas</span></div></div>
+            <div class="fstep"><div class="fbar"><b>Prompt &amp; contexto</b><span>R.A.C.E.</span></div></div>
+            <div class="fstep"><div class="fbar"><b>Assistente + RAG</b></div></div>
+            <div class="fstep"><div class="fbar"><b>ROI &amp; payback</b></div></div>
+          </div>
+          <p class="fnote">Não comece pela tecnologia — comece pelo atrito. A IA é um acelerador; a direção é com você. No exemplo da turma: ~R$ 700/mês de ganho e payback em ~1,4 mês.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  // Gate hidden initial states behind .js so a CDN failure never blanks the page.
-  doc.classList.add('js');
+  <!-- FRAMEWORK R.A.C.E. -->
+  <section id="framework">
+    <span class="side-label">// Framework</span>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Framework</span>
+        <h2>Prompts que a IA <em>acerta de primeira</em></h2>
+        <p class="lead">Quatro letras fáceis de memorizar que transformam um pedido fraco num comando útil e consistente.</p>
+      </div>
+      <div class="race-grid">
+        <div class="rtile rv"><div class="rl">R</div><h4>Role · Papel</h4><p>Quem a IA deve ser. “Você é um consultor de marketing para PMEs.”</p></div>
+        <div class="rtile rv d1"><div class="rl">A</div><h4>Action · Ação</h4><p>O que fazer, com verbo claro: criar, resumir, analisar, comparar.</p></div>
+        <div class="rtile rv d2"><div class="rl">C</div><h4>Context · Contexto</h4><p>Público, dados, cenário e restrições que a IA precisa considerar.</p></div>
+        <div class="rtile rv d3"><div class="rl">E</div><h4>Expectation · Entrega</h4><p>Formato, tamanho e tom da resposta — como começar e terminar.</p></div>
+      </div>
+      <div class="ba rv d1">
+        <div class="bx bad"><span class="tagx">✕ Prompt fraco</span>“Escreva um post sobre nosso produto.”</div>
+        <div class="bx good"><span class="tagx">✓ Prompt R.A.C.E.</span>“<mark>Você é um redator de redes sociais</mark> para uma confeitaria artesanal. <mark>Escreva 3 legendas de Instagram</mark> do nosso brownie vegano. <mark>Público: mulheres 25–40 sem lactose</mark>; tom acolhedor. <mark>Até 280 caracteres, 3 hashtags e uma CTA.</mark>”</div>
+      </div>
+    </div>
+  </section>
 
-  /* ─────────────── Smooth scroll (Lenis) ─────────────── */
-  let lenis = null;
-  if (typeof window.Lenis !== 'undefined' && !prefersReduced) {
-    lenis = new window.Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      touchMultiplier: 1.6,
+  <!-- PRÁTICA / WHATSAPP -->
+  <section id="ia">
+    <div class="wrap ia-grid">
+      <div>
+        <span class="kicker">Mão na massa</span>
+        <div class="sec-head" style="margin-bottom:0">
+          <h2 style="margin-top:14px">Construa um assistente que <em style="font-style:normal;color:var(--cyan)">atende no WhatsApp</em></h2>
+          <p class="lead">Ao vivo e sem programar, você cria um assistente com a base de conhecimento da sua empresa (RAG) e regras de governança — igual ao que roda numa PME de verdade.</p>
+        </div>
+        <div class="ia-feats">
+          <div class="feat rv"><span class="fi"><svg viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></svg></span><div><b>System prompt claro</b><p>Quem ele é, o que pode e não pode fazer, no tom da sua marca.</p></div></div>
+          <div class="feat rv d1"><span class="fi"><svg viewBox="0 0 24 24"><path d="M4 4h16v14H7l-3 3z"/></svg></span><div><b>Base de conhecimento (RAG)</b><p>FAQ, tabela de preços e políticas viram as “verdades internas” que evitam alucinação.</p></div></div>
+          <div class="feat rv d2"><span class="fi"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span><div><b>Governança &amp; LGPD</b><p>Se não souber, encaminha para um humano. Nada de inventar prazos ou preços.</p></div></div>
+        </div>
+        <div style="margin-top:30px">
+          <a class="btn blue" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Quero%20construir%20um%20assistente%20de%20IA%20no%20workshop." target="_blank" rel="noopener">Quero construir o meu</a>
+        </div>
+      </div>
+      <div class="phone rv d1" id="phoneDemo" aria-hidden="true">
+        <div class="ph-top">
+          <span class="av">IA</span>
+          <div><b>Loja Aurora · Assistente</b><span>online agora</span></div>
+        </div>
+        <div class="msgs" id="msgs">
+          <div class="msg in">Oi! Vocês entregam no interior? Quanto fica o frete? <span class="mt2">02:14</span></div>
+          <div class="msg out">Oi, Camila! 👋 Entregamos sim. Me passa seu CEP que já calculo pra você.<span class="mt2">02:14 ✓✓</span></div>
+          <div class="msg in">É 13010-001.<span class="mt2">02:15</span></div>
+          <div class="msg out">Frete R$ 18, chega em 3 dias úteis. Quer que eu já reserve o pedido? 😊<span class="mt2">02:15 ✓✓</span></div>
+          <div class="msg in" style="background:transparent;padding:4px 0"><span class="typing"><i></i><i></i><i></i></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA -->
+  <section id="agenda">
+    <span class="side-label">// Agenda</span>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="kicker">Agenda</span>
+        <h2>4 horas, <em>cronometradas</em></h2>
+        <p class="lead">Um roteiro que equilibra teoria e prática — modular e adaptável a 2h, 8h ou 16h.</p>
+      </div>
+      <div class="agenda-grid">
+        <div class="agenda-note rv">
+          <div class="box">
+            <h3>Formato flexível</h3>
+            <p>Presencial ou on-line, para turmas de 8 a 25 pessoas. Cada participante leva prompts, casos mapeados e um plano de ação.</p>
+            <div class="mini"><span>Presencial</span><span>On-line</span><span>8–25 pessoas</span></div>
+          </div>
+        </div>
+        <div class="tl">
+          <div class="tli rv"><span class="tt">10 min · Abertura</span><h4>Boas-vindas &amp; diagnóstico</h4><p>Contrato de convivência e a enquete “de 1 a 10, quanto você entende de IA?” — o termômetro que repetimos no fim.</p></div>
+          <div class="tli rv d1"><span class="tt">~1h45 · Parte 1</span><h4>Fundamentos e base</h4><p>Por que agora, o que é IA, como ela “pensa”, IA Generativa &amp; LLMs e dos LLMs aos agentes. O vocabulário e o modelo mental.</p></div>
+          <div class="tli rv d1"><span class="tt">10 min · Intervalo</span><h4>Pausa &amp; networking</h4><p>Respira, conversa e troca casos com a turma.</p></div>
+          <div class="tli rv d2"><span class="tt">~2h · Parte 2</span><h4>Mão na massa</h4><p>Engenharia de prompt (R.A.C.E.), casos de uso por área, mapa de oportunidades com ROI/payback e a construção de um assistente no-code ao vivo.</p></div>
+          <div class="tli rv d3"><span class="tt">~20 min · Encerramento</span><h4>Plano 30/60/90</h4><p>Governança mínima, quiz de fixação e o compromisso de qual gargalo você vai atacar primeiro.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARA QUEM -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="train rv">
+        <img src="../assets/hero.jpg" alt="Gestores e equipes em workshop de IA" loading="lazy">
+        <div class="ov">
+          <span class="kicker" style="color:var(--cyan)">Para quem é</span>
+          <h3 style="margin-top:12px">De quem <em>decide</em> a quem <em>executa</em></h3>
+          <p>Sócios, gestores e equipes de marketing, vendas, atendimento, financeiro, operações e RH. Sem conhecimento técnico: saber usar um navegador e o WhatsApp já basta.</p>
+          <div class="pills"><span>Sócios</span><span>Gestores</span><span>Marketing</span><span>Vendas</span><span>Atendimento</span><span>RH</span></div>
+          <div style="display:flex;gap:14px;flex-wrap:wrap">
+            <a class="btn blue" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Workshop%20de%20Letramento%20em%20IA%20para%20PMEs." target="_blank" rel="noopener">Levar para minha equipe</a>
+            <a class="btn line" href="#agenda">Ver a agenda</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section style="padding-top:0;padding-bottom:0">
+    <div class="wrap">
+      <div class="final rv">
+        <h2>Sua turma no lado certo da IA</h2>
+        <p>Leve o workshop para a sua empresa — presencial ou on-line, adaptado à sua carga horária. Da curiosidade à maturidade, com método, segurança e resultado.</p>
+        <a class="btn" href="https://wa.me/5515998537657?text=Ol%C3%A1!%20Quero%20levar%20o%20Workshop%20de%20IA%20para%20a%20minha%20empresa." target="_blank" rel="noopener" style="background:#fff;color:var(--blue-deep)">WhatsApp · (15) 99853-7657</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot">
+    <span><strong>Influência Profissional</strong> — Agência de Estratégia Digital</span>
+    <span class="fm"><a href="/">influenciaprofissional.com.br</a> · Workshop de Letramento em IA</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(/[?&]static=1/.test(location.search)){
+    document.documentElement.classList.add('static');
+    document.querySelectorAll('.watch').forEach(function(el){ el.classList.add('in-view'); });
+  }
+
+  // header shadow
+  var hd = document.getElementById('hd');
+  addEventListener('scroll', function(){ hd.classList.toggle('scrolled', scrollY > 10); }, {passive:true});
+
+  // reveals
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){ io.observe(el); });
+
+  // watch groups (bars, chart, funnel)
+  var wio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in-view'); wio.unobserve(e.target); } });
+  },{threshold:.3});
+  document.querySelectorAll('.watch').forEach(function(el){ wio.observe(el); });
+
+  // counters
+  function fmt(v, dec){ return v.toLocaleString('pt-BR',{minimumFractionDigits:dec, maximumFractionDigits:dec}); }
+  var cio = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      cio.unobserve(e.target);
+      var el = e.target, target = parseFloat(el.dataset.target), dec = parseInt(el.dataset.decimals||'0',10);
+      var suf = el.dataset.suffix||'';
+      if(reduce){ el.textContent = fmt(target,dec)+suf; return; }
+      var t0=null, dur=1500;
+      function step(ts){
+        if(!t0) t0=ts;
+        var p=Math.min((ts-t0)/dur,1), ease=1-Math.pow(1-p,3);
+        el.textContent = fmt(target*ease,dec)+suf;
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
     });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-  }
+  },{threshold:.5});
+  document.querySelectorAll('.count').forEach(function(el){ cio.observe(el); });
 
-  if (hasGSAP) {
-    gsap.registerPlugin(ScrollTrigger);
-    if (lenis) {
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((t) => lenis.raf(t * 1000));
-      gsap.ticker.lagSmoothing(0);
-    }
+  // accordion
+  var items = document.querySelectorAll('.acc-item');
+  function setH(item, open){
+    var body = item.querySelector('.acc-body');
+    var btn = item.querySelector('.acc-btn');
+    if(open){ body.style.maxHeight = body.scrollHeight+'px'; item.classList.add('open'); btn.setAttribute('aria-expanded','true'); }
+    else{ body.style.maxHeight = '0px'; item.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
   }
-
-  // Anchor links → Lenis (or native fallback)
-  document.querySelectorAll('a[href^="#"]').forEach((a) => {
-    a.addEventListener('click', (e) => {
-      const id = a.getAttribute('href');
-      if (id.length < 2) return;
-      const target = document.querySelector(id);
-      if (!target) return;
-      e.preventDefault();
-      if (lenis) lenis.scrollTo(target, { offset: -20, duration: 1.3 });
-      else target.scrollIntoView({ behavior: 'smooth' });
+  items.forEach(function(item){
+    setH(item, item.classList.contains('open'));
+    item.querySelector('.acc-btn').addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      items.forEach(function(i){ setH(i, false); });
+      if(!isOpen) setH(item, true);
     });
   });
 
-  /* ─────────────── Scroll progress + nav state ─────────────── */
-  const progress = document.querySelector('[data-progress]');
-  const nav = document.querySelector('[data-nav]');
-  const onScroll = () => {
-    const st = window.scrollY || doc.scrollTop;
-    const h = doc.scrollHeight - window.innerHeight;
-    if (progress) progress.style.width = (h > 0 ? (st / h) * 100 : 0) + '%';
-    if (nav) nav.classList.toggle('is-scrolled', st > 40);
-  };
-  (lenis ? lenis.on('scroll', onScroll) : window.addEventListener('scroll', onScroll, { passive: true }));
-  onScroll();
-
-  /* ─────────────── Custom cursor ─────────────── */
-  if (!isTouch) {
-    const cursor = document.querySelector('[data-cursor]');
-    const ring = document.querySelector('[data-cursor-ring]');
-    const dot = document.querySelector('[data-cursor-dot]');
-    if (cursor && ring && dot) {
-      let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
-      window.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
-      const tick = () => {
-        rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
-        dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
-        ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
-        requestAnimationFrame(tick);
-      };
-      tick();
-
-      const hoverSel = 'a,button,[data-magnetic],[data-tilt-card]';
-      document.querySelectorAll(hoverSel).forEach((el) => {
-        el.addEventListener('mouseenter', () => {
-          cursor.classList.add('is-hover');
-          const label = el.getAttribute('data-cursor-label');
-          if (label) ring.setAttribute('data-label', label);
-        });
-        el.addEventListener('mouseleave', () => {
-          cursor.classList.remove('is-hover');
-          ring.removeAttribute('data-label');
-        });
-      });
-      document.querySelectorAll('[data-cursor-hide]').forEach((el) => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('is-hide'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('is-hide'));
-      });
-    }
-  }
-
-  /* ─────────────── Magnetic buttons ─────────────── */
-  if (!isTouch && !prefersReduced) {
-    document.querySelectorAll('[data-magnetic]').forEach((el) => {
-      const strength = 0.35;
-      el.addEventListener('mousemove', (e) => {
-        const r = el.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width / 2) * strength;
-        const y = (e.clientY - r.top - r.height / 2) * strength;
-        el.style.transform = `translate(${x}px,${y}px)`;
-      });
-      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
-    });
-  }
-
-  /* ─────────────── Card glow follow + tilt ─────────────── */
-  if (!isTouch) {
-    document.querySelectorAll('.card').forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty('--mx', ((e.clientX - r.left) / r.width) * 100 + '%');
-        card.style.setProperty('--my', ((e.clientY - r.top) / r.height) * 100 + '%');
+  // whatsapp chat sequence
+  var msgs = document.querySelectorAll('#msgs .msg');
+  var pio = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      pio.unobserve(e.target);
+      msgs.forEach(function(m,i){
+        setTimeout(function(){ m.classList.add('show'); }, reduce?0:400+i*850);
       });
     });
-
-    if (!prefersReduced) {
-      document.querySelectorAll('[data-tilt-card]').forEach((el) => {
-        el.style.transformStyle = 'preserve-3d';
-        el.addEventListener('mousemove', (e) => {
-          const r = el.getBoundingClientRect();
-          const px = (e.clientX - r.left) / r.width - 0.5;
-          const py = (e.clientY - r.top) / r.height - 0.5;
-          el.style.transform = `perspective(900px) rotateY(${px * 7}deg) rotateX(${-py * 7}deg) translateZ(0)`;
-        });
-        el.addEventListener('mouseleave', () => { el.style.transform = ''; });
-      });
-    }
-  }
-
-  /* ─────────────── Hero 3D tilt (whole scene follows mouse) ─────────────── */
-  if (!isTouch && !prefersReduced) {
-    const scene = document.querySelector('[data-parallax-scene]');
-    const tiltInner = document.querySelector('[data-tilt]');
-    const hero = document.querySelector('[data-hero]');
-    if (hero && (scene || tiltInner)) {
-      hero.addEventListener('mousemove', (e) => {
-        const px = e.clientX / innerWidth - 0.5;
-        const py = e.clientY / innerHeight - 0.5;
-        if (tiltInner) tiltInner.style.transform =
-          `perspective(1200px) rotateY(${px * 4}deg) rotateX(${-py * 4}deg)`;
-        scene?.querySelectorAll('[data-depth]').forEach((layer) => {
-          const d = parseFloat(layer.getAttribute('data-depth')) * 80;
-          layer.style.transform = `translate(${px * d}px,${py * d}px)`;
-        });
-      });
-      hero.addEventListener('mouseleave', () => {
-        if (tiltInner) tiltInner.style.transform = '';
-      });
-    }
-  }
-
-  /* ─────────────── Hero particles (lightweight canvas) ─────────────── */
-  (() => {
-    const canvas = document.querySelector('[data-particles]');
-    if (!canvas || prefersReduced) return;
-    const ctx = canvas.getContext('2d');
-    let w, h, dpr, particles = [], raf;
-    const COUNT = window.innerWidth < 700 ? 26 : 54;
-
-    const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = canvas.width = canvas.offsetWidth * dpr;
-      h = canvas.height = canvas.offsetHeight * dpr;
-    };
-    const seed = () => {
-      particles = Array.from({ length: COUNT }, () => ({
-        x: Math.random() * w, y: Math.random() * h,
-        r: (Math.random() * 1.6 + 0.4) * dpr,
-        vx: (Math.random() - 0.5) * 0.12 * dpr,
-        vy: (Math.random() - 0.5) * 0.12 * dpr,
-        a: Math.random() * 0.5 + 0.15,
-      }));
-    };
-    const draw = () => {
-      ctx.clearRect(0, 0, w, h);
-      for (const p of particles) {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > w) p.vx *= -1;
-        if (p.y < 0 || p.y > h) p.vy *= -1;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(180,190,255,${p.a})`;
-        ctx.fill();
-      }
-      raf = requestAnimationFrame(draw);
-    };
-    const start = () => { resize(); seed(); cancelAnimationFrame(raf); draw(); };
-    window.addEventListener('resize', () => { resize(); seed(); }, { passive: true });
-    start();
-  })();
-
-  /* ─────────────── Marquee (JS drift, pauses off-screen naturally) ─────────────── */
-  if (hasGSAP && !prefersReduced) {
-    const track = document.querySelector('[data-marquee]');
-    if (track) {
-      const row = track.querySelector('.marquee__row');
-      const dist = row.getBoundingClientRect().width;
-      gsap.to(track, { x: -dist, duration: 24, ease: 'none', repeat: -1 });
-    }
-  }
-
-  /* ─────────────── Lead form (real, no-backend by default) ───────────────
-     Works out of the box via mailto. To receive leads by POST instead,
-     paste a Formspree/Basin/etc. URL into FORM_ENDPOINT below. */
-  (() => {
-    const form = document.getElementById('lead-form');
-    if (!form) return;
-
-    const FORM_ENDPOINT = '';                          // optional: 'https://formspree.io/f/xxxx'
-    const LEAD_EMAIL = 'luciano.gonelli@gmail.com';    // fallback destination for mailto
-    const success = document.getElementById('lead-success');
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    const fieldOf = (el) => el.closest('.field');
-    const setError = (el, msg) => {
-      const f = fieldOf(el); if (!f) return;
-      const box = f.querySelector('[data-error]');
-      if (msg) { f.classList.add('is-invalid'); if (box) box.textContent = msg; }
-      else { f.classList.remove('is-invalid'); if (box) box.textContent = ''; }
-    };
-
-    const validate = () => {
-      let ok = true;
-      const { nome, email, whatsapp, empresa } = form;
-      if (!nome.value.trim()) { setError(nome, 'Como podemos te chamar?'); ok = false; } else setError(nome);
-      if (!emailRe.test(email.value.trim())) { setError(email, 'Informe um e-mail válido'); ok = false; } else setError(email);
-      if (whatsapp.value.replace(/\D/g, '').length < 8) { setError(whatsapp, 'Informe um telefone válido'); ok = false; } else setError(whatsapp);
-      if (!empresa.value.trim()) { setError(empresa, 'Qual é o nome da empresa?'); ok = false; } else setError(empresa);
-      return ok;
-    };
-
-    // Live-clear errors once a field is being corrected.
-    form.querySelectorAll('input').forEach((i) =>
-      i.addEventListener('input', () => { if (fieldOf(i)?.classList.contains('is-invalid')) validate(); }));
-
-    const buildMailto = (d) => {
-      const subject = `Proposta de Workshop de IA — ${d.empresa || d.nome}`;
-      const body =
-`Olá! Tenho interesse no Workshop de Letramento em IA para PMEs.
-
-Nome: ${d.nome}
-Empresa: ${d.empresa}
-E-mail: ${d.email}
-WhatsApp: ${d.whatsapp}
-Formato: ${d.formato}
-Tamanho da turma: ${d.turma}
-
-Mensagem:
-${d.mensagem || '—'}`;
-      return `mailto:${LEAD_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    };
-
-    const showSuccess = () => {
-      if (!success) return;
-      form.setAttribute('hidden', '');
-      success.removeAttribute('hidden');
-      if (lenis) lenis.scrollTo(success, { offset: -80 });
-      else success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    };
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      if (!validate()) { form.querySelector('.is-invalid input')?.focus(); return; }
-
-      const data = Object.fromEntries(new FormData(form).entries());
-      const btn = form.querySelector('button[type=submit]');
-      const label = btn.querySelector('span');
-      const original = label.textContent;
-      btn.disabled = true; btn.style.transform = ''; label.textContent = 'Enviando…';
-
-      const finish = () => { btn.disabled = false; label.textContent = original; showSuccess(); };
-
-      if (FORM_ENDPOINT) {
-        try {
-          const res = await fetch(FORM_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-          });
-          if (!res.ok) throw new Error('bad response');
-          finish();
-          return;
-        } catch (_) { /* fall through to mailto */ }
-      }
-      window.location.href = buildMailto(data);
-      finish();
-    });
-  })();
-
-  /* ═══════════════ GSAP SCROLL ANIMATIONS ═══════════════ */
-  if (hasGSAP && !prefersReduced) {
-
-    /* Split headlines → word-by-word mask reveal */
-    document.querySelectorAll('[data-split-lines]').forEach((el) => {
-      let split;
-      if (typeof window.SplitType !== 'undefined') {
-        split = new window.SplitType(el, { types: 'lines,words' });
-        el.querySelectorAll('.line').forEach((l) => l.classList.add('split-line'));
-      }
-      const words = el.querySelectorAll('.word');
-      const targets = words.length ? words : [el];
-      gsap.set(el, { opacity: 1 });
-      gsap.from(targets, {
-        yPercent: words.length ? 110 : 0,
-        opacity: words.length ? 1 : 0,
-        duration: 0.9,
-        ease: 'power4.out',
-        stagger: 0.045,
-        scrollTrigger: { trigger: el, start: 'top 85%' },
-      });
-    });
-
-    /* Generic reveal (fade + rise + deblur) */
-    gsap.utils.toArray('[data-reveal]').forEach((el) => {
-      gsap.to(el, {
-        opacity: 1, y: 0, filter: 'blur(0px)',
-        duration: 1, ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 88%' },
-      });
-    });
-
-    /* Hero intro timeline (letters already handled; sequence the rest) */
-    const heroReveals = document.querySelectorAll('[data-hero] [data-reveal]');
-    gsap.set(heroReveals, { opacity: 0, y: 24 });
-    gsap.to(heroReveals, {
-      opacity: 1, y: 0, filter: 'blur(0px)',
-      duration: 1, ease: 'power3.out', stagger: 0.12, delay: 0.35,
-    });
-
-    /* Hero parallax on scroll */
-    gsap.to('.hero__parallax', {
-      yPercent: 22, ease: 'none',
-      scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true },
-    });
-    gsap.to('.hero__inner', {
-      yPercent: -8, opacity: 0.2, ease: 'none',
-      scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true },
-    });
-
-    /* Ambient glows drift with scroll (depth) */
-    gsap.to('.ambient__glow--1', { yPercent: 30, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 1.2 } });
-    gsap.to('.ambient__glow--2', { yPercent: -24, ease: 'none', scrollTrigger: { start: 0, end: 'max', scrub: 1.4 } });
-
-    /* Gap bars fill */
-    document.querySelectorAll('.gap__bar-fill').forEach((bar) => {
-      const pct = bar.getAttribute('data-bar');
-      gsap.fromTo(bar, { width: '0%' }, {
-        width: pct + '%', duration: 1.6, ease: 'power3.out',
-        scrollTrigger: { trigger: bar, start: 'top 90%' },
-      });
-    });
-
-    /* Number counters */
-    const runCounter = (el) => {
-      const end = parseFloat(el.getAttribute('data-count'));
-      const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
-      const suffix = el.getAttribute('data-suffix') || '';
-      const obj = { v: 0 };
-      gsap.to(obj, {
-        v: end, duration: 1.8, ease: 'power2.out',
-        onUpdate: () => {
-          const val = decimals ? obj.v.toFixed(decimals).replace('.', ',') : Math.round(obj.v);
-          el.textContent = val + suffix;
-        },
-      });
-    };
-    document.querySelectorAll('[data-count]').forEach((el) => {
-      ScrollTrigger.create({ trigger: el, start: 'top 90%', once: true, onEnter: () => runCounter(el) });
-    });
-
-    /* Learn cards stagger */
-    gsap.from('.learn__card', {
-      y: 40, opacity: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08,
-      scrollTrigger: { trigger: '.learn__grid', start: 'top 80%' },
-    });
-
-    /* Agenda spine draws */
-    const spine = document.querySelector('[data-spine]');
-    if (spine) {
-      gsap.fromTo(spine, { scaleY: 0 }, {
-        scaleY: 1, ease: 'none',
-        scrollTrigger: { trigger: '.agenda__timeline', start: 'top 70%', end: 'bottom 80%', scrub: true },
-      });
-    }
-
-    /* Horizontal pinned scroll — agent levels */
-    const track = document.querySelector('[data-levels-track]');
-    const levels = document.querySelector('[data-levels]');
-    if (track && levels && window.innerWidth > 720) {
-      const getScroll = () => track.scrollWidth - window.innerWidth + 80;
-      gsap.to(track, {
-        x: () => -getScroll(),
-        ease: 'none',
-        scrollTrigger: {
-          trigger: levels,
-          start: 'top top',
-          end: () => '+=' + getScroll(),
-          pin: '[data-levels-pin]',
-          scrub: 1,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-        },
-      });
-    }
-
-    /* Offer card scale-in */
-    gsap.from('.offer__card', {
-      scale: 0.94, opacity: 0, y: 40, duration: 1.1, ease: 'power3.out',
-      scrollTrigger: { trigger: '.offer__card', start: 'top 85%' },
-    });
-
-    // Recalculate once fonts + images settle
-    window.addEventListener('load', () => ScrollTrigger.refresh());
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(() => ScrollTrigger.refresh());
-    }
-  } else {
-    // No GSAP or reduced motion → make sure everything is visible.
-    document.querySelectorAll('[data-reveal]').forEach((el) => {
-      el.style.opacity = 1; el.style.transform = 'none'; el.style.filter = 'none';
-    });
-  }
+  },{threshold:.4});
+  var pd = document.getElementById('phoneDemo');
+  if(pd) pio.observe(pd);
 })();
-
 </script>
 </body>
 </html>
