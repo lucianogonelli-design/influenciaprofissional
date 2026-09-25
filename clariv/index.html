@@ -12,7 +12,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Clariv — Drop de Setembro · Lançamento às 15h" />
   <meta property="og:description" content="24 peças novas. Luxo de joia, liberdade de semijoia." />
-  <meta property="og:image" content="assets/logo-caramelo.png" />
+  <meta property="og:image" content="assets/produtos/oculos-bellini-1.webp" />
   <meta property="og:locale" content="pt_BR" />
 
   <link rel="icon" type="image/png" href="assets/logo-caramelo.png" />
@@ -198,8 +198,10 @@
     .card__media {
       position: relative; aspect-ratio: 4 / 5; overflow: hidden; background: var(--grey);
     }
-    .card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-    .card:hover .card__media img { transform: scale(1.045); }
+    .card__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 1.2s var(--ease), opacity .7s var(--ease); }
+    .card__img--alt { opacity: 0; object-fit: contain; object-position: center; background: #fff; }
+    .card:hover .card__img { transform: scale(1.04); }
+    .card.has-alt:hover .card__img--alt { opacity: 1; }
     .card__num {
       position: absolute; top: 16px; left: 16px; z-index: 2;
       font-family: var(--font-title); font-size: .66rem; letter-spacing: .3em; color: var(--green);
@@ -228,6 +230,9 @@
       letter-spacing: .2em; text-transform: uppercase; color: var(--green); line-height: 1.35;
     }
     .card__desc { margin-top: 12px; font-family: var(--font-serif); font-style: italic; font-size: 1.12rem; line-height: 1.5; color: var(--ink-soft); }
+    .card__price { margin-top: 16px; display: flex; flex-direction: column; gap: 2px; }
+    .card__price-main { font-family: var(--font-title); font-weight: 300; font-size: 1.15rem; letter-spacing: .08em; color: var(--green); }
+    .card__price-sub { font-size: .78rem; color: var(--caramel-700); }
     .card__link {
       margin-top: auto; padding-top: 20px; align-self: flex-start;
       display: inline-flex; align-items: center; gap: 12px;
@@ -394,30 +399,102 @@
        img: caminho da foto em assets/produtos/ (null = placeholder da marca)
        ============================================================ */
     const PECAS = [
-      { nome: 'Óculos Bella',            cat: 'oculos',   url: 'https://clariv.com.br/produtos/oculos-bella-wzyzs/',     img: null, desc: 'Moldura de presença suave que emoldura o olhar com leveza, do café da manhã ao fim de tarde.' },
-      { nome: 'Óculos Venezia',          cat: 'oculos',   url: 'https://clariv.com.br/produtos/oculos-venezia-35ic5/',   img: null, desc: 'Inspirado na luz dourada italiana: o óculos que transforma qualquer saída em viagem.' },
-      { nome: 'Óculos Bellini',          cat: 'oculos',   url: 'https://clariv.com.br/produtos/oculos-bellini-16tda/',   img: null, desc: 'Charme de dolce vita. O acessório que finaliza o look com um único gesto.' },
-      { nome: 'Brinco Nera',             cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-nera-1xv82/',      img: null, desc: 'Profundo e marcante, pensado para quem assina o próprio estilo.' },
-      { nome: 'Brinco Liz',              cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-liz-59uo7/',       img: null, desc: 'Delicado na medida certa, para acompanhar a rotina com elegância.' },
-      { nome: 'Brinco Mila',             cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-mila-h2m2m/',      img: null, desc: 'Leve e luminoso: o brinco que fica bem em todos os dias da semana.' },
-      { nome: 'Brinco Vega',             cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-vega-1r6ub/',      img: null, desc: 'Batizado pela estrela mais brilhante do céu de verão. Um brilho que se nota de longe.' },
-      { nome: 'Piercing Donna',          cat: 'piercings',url: 'https://clariv.com.br/produtos/piercing-donna-1vepe/',   img: null, desc: 'Um detalhe de atitude para compor a orelha com personalidade.' },
-      { nome: 'Bracelete Ébano',         cat: 'pulso',    url: 'https://clariv.com.br/produtos/bracelete-ebano-7kvip/',  img: null, desc: 'Presença escultural no pulso. Par perfeito do Brinco Ébano.' },
-      { nome: 'Brinco Ébano',            cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-ebano-k6i95/',     img: null, desc: 'Forma marcante, presença de escultura. Combine com o Bracelete Ébano.' },
-      { nome: 'Brinco Étoile',           cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-etoile-k2t4q/',    img: null, desc: 'Étoile, estrela em francês: um ponto de luz que ilumina o rosto.' },
-      { nome: 'Brinco Sol',              cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-sol-11z1r/',       img: null, desc: 'Calor e brilho em uma única peça, a energia do sol a seu favor.' },
-      { nome: 'Brinco Ilia',             cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-ilia-15ziv/',      img: null, desc: 'Linhas limpas e femininas para um visual refinado sem esforço.' },
-      { nome: 'Brinco Nox',              cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-nox-12sm3/',       img: null, desc: 'Nox, a noite em latim: feito para brilhar quando as luzes baixam.' },
-      { nome: 'Piercing Fake Elo Dourado', cat: 'piercings', url: 'https://clariv.com.br/produtos/piercing-fake-elo-dourado-1c2xp/', img: null, desc: 'O efeito do piercing sem precisar de furo, em elo dourado, para compor a orelha em camadas.' },
-      { nome: 'Piercing Fake Elo Prata',   cat: 'piercings', url: 'https://clariv.com.br/produtos/piercing-fake-elo-prata-cv636/',   img: null, desc: 'A mesma ousadia do elo, na versão prata. Sem furo, com toda a atitude.' },
-      { nome: 'Piercing Fake Lumi',      cat: 'piercings',url: 'https://clariv.com.br/produtos/piercing-fake-lumi-o33jf/', img: null, desc: 'Um ponto de luz na curva da orelha, sem precisar de furo.' },
-      { nome: 'Brinco Solitário Clàriv Prata 10mm', cat: 'brincos', url: 'https://clariv.com.br/produtos/brinco-solitario-clariv-prata-10mm-1encu/', img: null, desc: 'O solitário assinatura da Clàriv, na versão prata. Um clássico que nunca sai de cena.' },
-      { nome: 'Brinco Solitário Clàriv 10mm',       cat: 'brincos', url: 'https://clariv.com.br/produtos/brinco-solitario-clariv-10mm-6fr24/',     img: null, desc: 'O brilho essencial da marca em 10mm, para qualquer ocasião.' },
-      { nome: 'Brinco Elis',             cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-elis-1x4l4/',      img: null, desc: 'Sofisticação em traço mínimo, para quem diz muito com pouco.' },
-      { nome: 'Brinco Aria',             cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-aria-15kbn/',      img: null, desc: 'Como uma melodia: leve, harmônico e impossível de esquecer.' },
-      { nome: 'Brinco Amélie',           cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-amelie-1kx7r/',    img: null, desc: 'Romântico e feminino, com um toque parisiense.' },
-      { nome: 'Brinco Aveline',          cat: 'brincos',  url: 'https://clariv.com.br/produtos/brinco-aveline-1dtol/',   img: null, desc: 'Delicadeza com personalidade: o brinco que completa o look com graça.' },
-      { nome: 'Conjunto Vittoria',       cat: 'pulso',    url: 'https://clariv.com.br/produtos/conjunto-vittotia-3v26z/', img: null, desc: 'Vittoria, vitória em italiano. Um conjunto para celebrar as suas conquistas.' },
+      { nome: 'Óculos Bella', cat: 'oculos', linha: '', preco: 'R$ 497,00', pix: 'R$ 472,15', parcelas: '6x de R$ 82,83 sem juros',
+        url: 'https://clariv.com.br/produtos/oculos-bella-wzyzs/',
+        img: 'assets/produtos/oculos-bella-1.webp', img2: null,
+        desc: 'Óculos Bella com acabamento acetinado e lente marrom.' },
+      { nome: 'Óculos Venezia', cat: 'oculos', linha: '', preco: 'R$ 497,00', pix: 'R$ 472,15', parcelas: '6x de R$ 82,83 sem juros',
+        url: 'https://clariv.com.br/produtos/oculos-venezia-35ic5/',
+        img: 'assets/produtos/oculos-venezia-1.webp', img2: 'assets/produtos/oculos-venezia-2.webp',
+        desc: 'Óculos Venezia com design elegante todo preto, lentes escuras e logo Clàriv.' },
+      { nome: 'Óculos Bellini', cat: 'oculos', linha: '', preco: 'R$ 497,00', pix: 'R$ 472,15', parcelas: '6x de R$ 82,83 sem juros',
+        url: 'https://clariv.com.br/produtos/oculos-bellini-16tda/',
+        img: 'assets/produtos/oculos-bellini-1.webp', img2: 'assets/produtos/oculos-bellini-2.webp',
+        desc: 'Óculos Bellini Clàriv com lente marrom e armação dourada.' },
+      { nome: 'Brinco Nera', cat: 'brincos', linha: 'Linha A Artista', preco: 'R$ 251,00', pix: 'R$ 238,45', parcelas: '6x de R$ 41,83 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-nera-1xv82/',
+        img: 'assets/produtos/brinco-nera-1.webp', img2: 'assets/produtos/brinco-nera-2.webp',
+        desc: 'Brinco Nera da Linha A Artista com banho 18K e design geométrico.' },
+      { nome: 'Brinco Liz', cat: 'brincos', linha: 'Linha A Majestade', preco: 'R$ 151,00', pix: 'R$ 143,45', parcelas: '3x de R$ 50,33 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-liz-59uo7/',
+        img: 'assets/produtos/brinco-liz-1.webp', img2: 'assets/produtos/brinco-liz-2.webp',
+        desc: 'Brinco Liz da Linha A Majestade com banho de ródio e zircônias verdes.' },
+      { nome: 'Brinco Mila', cat: 'brincos', linha: 'Linha A Artista', preco: 'R$ 260,00', pix: 'R$ 247,00', parcelas: '6x de R$ 43,33 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-mila-h2m2m/',
+        img: 'assets/produtos/brinco-mila-1.webp', img2: 'assets/produtos/brinco-mila-2.webp',
+        desc: 'Brinco Mila da Linha A Artista, meia argola hipoalergênica com banho ouro 18K.' },
+      { nome: 'Brinco Vega', cat: 'brincos', linha: 'Linha A Artista', preco: 'R$ 260,00', pix: 'R$ 247,00', parcelas: '6x de R$ 43,33 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-vega-1r6ub/',
+        img: 'assets/produtos/brinco-vega-1.webp', img2: 'assets/produtos/brinco-vega-2.webp',
+        desc: 'Brinco Vega da Linha A Artista com banho de ródio, design moderno e hipoalergênico.' },
+      { nome: 'Piercing Donna', cat: 'piercings', linha: 'Linha A Majestade', preco: 'R$ 161,00', pix: 'R$ 152,95', parcelas: '4x de R$ 40,25 sem juros',
+        url: 'https://clariv.com.br/produtos/piercing-donna-1vepe/',
+        img: 'assets/produtos/piercing-donna-1.webp', img2: null,
+        desc: 'Piercing Donna da Linha A Majestade com banho 18K, hipoalergênico e design marcante.' },
+      { nome: 'Bracelete Elise', cat: 'pulso', linha: '', preco: 'R$ 206,00', pix: 'R$ 195,70', parcelas: '5x de R$ 41,20 sem juros',
+        url: 'https://clariv.com.br/produtos/bracelete-ebano-7kvip/',
+        img: 'assets/produtos/bracelete-ebano-1.webp', img2: null,
+        desc: 'Bracelete Elise com banho 18K, resina preta, zircônias e design sofisticado.' },
+      { nome: 'Brinco Elise', cat: 'brincos', linha: '', preco: 'R$ 260,00', pix: 'R$ 247,00', parcelas: '6x de R$ 43,33 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-ebano-k6i95/',
+        img: 'assets/produtos/brinco-ebano-1.webp', img2: null,
+        desc: 'Brinco Elise com design redondo, resina preta, pérola central e mini zircônias.' },
+      { nome: 'Brinco Étoile', cat: 'brincos', linha: '', preco: 'R$ 233,00', pix: 'R$ 221,35', parcelas: '5x de R$ 46,60 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-etoile-k2t4q/',
+        img: 'assets/produtos/brinco-etoile-1.webp', img2: 'assets/produtos/brinco-etoile-2.webp',
+        desc: 'Brinco Étoile com design contemporâneo e acabamento em ródio acetinado.' },
+      { nome: 'Brinco Sol', cat: 'brincos', linha: 'Linha A Majestade', preco: 'R$ 152,00', pix: 'R$ 144,40', parcelas: '3x de R$ 50,67 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-sol-11z1r/',
+        img: 'assets/produtos/brinco-sol-1.webp', img2: 'assets/produtos/brinco-sol-2.webp',
+        desc: 'Brinco Sol da Linha A Majestade com design delicado, banho de ródio e zircônia amarela.' },
+      { nome: 'Brinco Ilia', cat: 'brincos', linha: 'Linha A Artista', preco: 'R$ 196,00', pix: 'R$ 186,20', parcelas: '4x de R$ 49,00 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-ilia-15ziv/',
+        img: 'assets/produtos/brinco-ilia-1.webp', img2: 'assets/produtos/brinco-ilia-2.webp',
+        desc: 'Brinco Ilia da Linha A Artista com design gota, banho 18K e hipoalergênico.' },
+      { nome: 'Brinco Nox', cat: 'brincos', linha: 'Linha A Artista', preco: 'R$ 233,00', pix: 'R$ 221,35', parcelas: '5x de R$ 46,60 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-nox-12sm3/',
+        img: 'assets/produtos/brinco-nox-1.webp', img2: 'assets/produtos/brinco-nox-2.webp',
+        desc: 'Brinco Nox da Linha A Artista com design moderno, duplo banho 18K e ródio acetinado.' },
+      { nome: 'Piercing Fake Elo Dourado', cat: 'piercings', linha: 'Linha A Artista', preco: 'R$ 151,00', pix: 'R$ 143,45', parcelas: '3x de R$ 50,33 sem juros',
+        url: 'https://clariv.com.br/produtos/piercing-fake-elo-dourado-1c2xp/',
+        img: 'assets/produtos/piercing-fake-elo-dourado-1.webp', img2: null,
+        desc: 'Piercing Fake Elo Dourado da Linha A Artista, hipoalergênico e sem perfuração.' },
+      { nome: 'Piercing Fake Elo Prata', cat: 'piercings', linha: 'Linha A Artista', preco: 'R$ 151,00', pix: 'R$ 143,45', parcelas: '3x de R$ 50,33 sem juros',
+        url: 'https://clariv.com.br/produtos/piercing-fake-elo-prata-cv636/',
+        img: 'assets/produtos/piercing-fake-elo-prata-1.webp', img2: null,
+        desc: 'Piercing Fake Elo da Linha A Artista com design robusto e banho de ródio.' },
+      { nome: 'Piercing Fake Lumi', cat: 'piercings', linha: 'Linha A Artista', preco: 'R$ 151,00', pix: 'R$ 143,45', parcelas: '3x de R$ 50,33 sem juros',
+        url: 'https://clariv.com.br/produtos/piercing-fake-lumi-o33jf/',
+        img: 'assets/produtos/piercing-fake-lumi-1.webp', img2: 'assets/produtos/piercing-fake-lumi-2.webp',
+        desc: 'Piercing Fake Lumi da Linha A Artista com banho de ródio prateado, estilo sem perfuração.' },
+      { nome: 'Brinco Solitário Clàriv Prata 10mm', cat: 'brincos', linha: '', preco: 'R$ 206,00', pix: 'R$ 195,70', parcelas: '5x de R$ 41,20 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-solitario-clariv-prata-10mm-1encu/',
+        img: 'assets/produtos/brinco-solitario-clariv-prata-10mm-1.webp', img2: 'assets/produtos/brinco-solitario-clariv-prata-10mm-2.webp',
+        desc: 'Brinco Solitário Clàriv 10mm com banho de ródio, hipoalergênico e acabamento prateado.' },
+      { nome: 'Brinco Solitário Clàriv 10mm', cat: 'brincos', linha: '', preco: 'R$ 206,00', pix: 'R$ 195,70', parcelas: '5x de R$ 41,20 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-solitario-clariv-10mm-6fr24/',
+        img: 'assets/produtos/brinco-solitario-clariv-10mm-1.webp', img2: 'assets/produtos/brinco-solitario-clariv-10mm-2.webp',
+        desc: 'Brinco Solitário Clàriv com pedra 10mm, banho 18K e design clássico.' },
+      { nome: 'Brinco Elis', cat: 'brincos', linha: 'Linha A Musa', preco: 'R$ 196,00', pix: 'R$ 186,20', parcelas: '4x de R$ 49,00 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-elis-1x4l4/',
+        img: 'assets/produtos/brinco-elis-1.webp', img2: null,
+        desc: 'Brinco Elis da Linha A Musa com banho de ródio e pérola central.' },
+      { nome: 'Brinco Aria', cat: 'brincos', linha: 'Linha A Artista', preco: 'R$ 276,00', pix: 'R$ 262,20', parcelas: '6x de R$ 46,00 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-aria-15kbn/',
+        img: 'assets/produtos/brinco-aria-1.webp', img2: 'assets/produtos/brinco-aria-2.webp',
+        desc: 'Brinco Aria da Linha A Artista com banho 18K, design marcante e versátil.' },
+      { nome: 'Brinco Amelie', cat: 'brincos', linha: 'Linha A Artista', preco: 'R$ 170,00', pix: 'R$ 161,50', parcelas: '4x de R$ 42,50 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-amelie-1kx7r/',
+        img: 'assets/produtos/brinco-amelie-1.webp', img2: 'assets/produtos/brinco-amelie-2.webp',
+        desc: 'Brinco Amelie da Linha A Artista com banho de ródio, livre de níquel e design elegante.' },
+      { nome: 'Brinco Aveline', cat: 'brincos', linha: 'Linha A Majestade', preco: 'R$ 170,00', pix: 'R$ 161,50', parcelas: '4x de R$ 42,50 sem juros',
+        url: 'https://clariv.com.br/produtos/brinco-aveline-1dtol/',
+        img: 'assets/produtos/brinco-aveline-1.webp', img2: 'assets/produtos/brinco-aveline-2.webp',
+        desc: 'Brinco Aveline da Linha A Majestade, hipoalergênico e com design curvo sofisticado.' },
+      { nome: 'Conjunto Vittoria', cat: 'pulso', linha: 'Linha A Majestade', preco: 'R$ 170,00', pix: 'R$ 161,50', parcelas: '4x de R$ 42,50 sem juros',
+        url: 'https://clariv.com.br/produtos/conjunto-vittotia-3v26z/',
+        img: 'assets/produtos/conjunto-vittotia-1.webp', img2: 'assets/produtos/conjunto-vittotia-2.webp',
+        desc: 'Conjunto Vittoria da Linha A Majestade com banho 18K, hipoalergênico e design delicado.' },
     ];
 
     const CATS = [
@@ -448,18 +525,24 @@
       grid.innerHTML = PECAS.map((p, i) => {
         const n = String(i + 1).padStart(2, '0');
         const media = p.img
-          ? `<img src="${esc(p.img)}" alt="${esc(p.nome)}, Clariv" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{innerHTML:this.dataset.ph}).firstElementChild)" data-ph="${esc(placeholder(p))}" />`
+          ? `${placeholder(p)}<img class="card__img" src="${esc(p.img)}" alt="${esc(p.nome)}, Clariv" loading="${i < 3 ? 'eager' : 'lazy'}" onerror="this.remove()" />`
+            + (p.img2 ? `<img class="card__img card__img--alt" src="${esc(p.img2)}" alt="" loading="lazy" onerror="this.remove()" />` : '')
           : placeholder(p);
-        return `<article class="card${p.destaque ? ' card--feature' : ''}" data-cat="${p.cat}">
+        const preco = p.preco ? `<div class="card__price">
+              <span class="card__price-main">${esc(p.preco)}</span>
+              <span class="card__price-sub">${esc(p.pix)} no Pix${p.parcelas ? ' · ou ' + esc(p.parcelas) : ''}</span>
+            </div>` : '';
+        return `<article class="card${p.img2 ? ' has-alt' : ''}" data-cat="${p.cat}">
           <div class="card__media">
             <span class="card__num">Nº ${n}</span>
             <span class="card__new">Novo</span>
             ${media}
           </div>
           <div class="card__body">
-            <p class="card__cat">${esc(catNome(p.cat))}</p>
+            <p class="card__cat">${esc(catNome(p.cat))}${p.linha ? ' · ' + esc(p.linha) : ''}</p>
             <h3 class="card__name">${esc(p.nome)}</h3>
             <p class="card__desc">${esc(p.desc)}</p>
+            ${preco}
             <a class="card__link" href="${esc(p.url)}" target="_blank" rel="noopener"><span>Ver a peça</span>${seta}</a>
           </div>
           <a class="card__stretch" href="${esc(p.url)}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"></a>
